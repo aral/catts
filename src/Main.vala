@@ -29,13 +29,13 @@ namespace Gala.Plugins.Catts
     public const string VERSION = "1.0";
 
     // Visual Settings
-    public const string ACTIVE_ICON_COLOR = "#5e5e6448";
+    //  public const string ACTIVE_ICON_COLOR = "#5e5e6448";
     public const int ICON_SIZE = 96;
     //  public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
     public const int WRAPPER_BORDER_RADIUS = 12;
     public const int WRAPPER_PADDING = 12;
     public const string CAPTION_FONT_NAME = "Inter";
-    public const string CAPTION_COLOR = "#2e2e31";
+    //  public const string CAPTION_COLOR = "#2e2e31";
 
     public class Main : Gala.Plugin
     {
@@ -71,10 +71,22 @@ namespace Gala.Plugins.Catts
             KeyBinding.set_custom_handler("switch-windows-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
 
             // Set the colours based on the person’s light/dark scheme preference.
-            var granite_settings = Granite.Settings.get_default();
-            var wrapper_background_color = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.LIGHT || granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE ? "#EAEAEAC8" : "#333333C8";
+            var wrapper_background_color = "red";
+            var active_icon_color = "blue";
+            var caption_color = "green";
 
-            //  var accent_colour = granite_settings.prefers_accent_color;
+            var granite_settings = Granite.Settings.get_default();
+            if (granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.LIGHT || granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                // Light mode.
+                wrapper_background_color = "#EAEAEAC8";
+                active_icon_color = "#5e5e6448";
+                caption_color = "#2e2e31";
+            } else {
+                // Dark mode.
+                wrapper_background_color = "#5e5e64C8";
+                active_icon_color = "#EAEAEA48";
+                caption_color = "#ffffff";
+            }
 
             wrapper = new RoundedActor(Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS);
             wrapper.reactive = true;
@@ -89,13 +101,13 @@ namespace Gala.Plugins.Catts
             container.button_press_event.connect(container_mouse_press);
             container.motion_event.connect(container_motion_event);
 
-            indicator = new RoundedActor(Color.from_string(ACTIVE_ICON_COLOR), WRAPPER_BORDER_RADIUS);
+            indicator = new RoundedActor(Color.from_string(active_icon_color), WRAPPER_BORDER_RADIUS);
 
             indicator.margin_left = indicator.margin_top =
                 indicator.margin_right = indicator.margin_bottom = 0;
             indicator.set_pivot_point(0.5f, 0.5f);
 
-            caption = new Text.full(CAPTION_FONT_NAME, "", Color.from_string(CAPTION_COLOR));
+            caption = new Text.full(CAPTION_FONT_NAME, "", Color.from_string(caption_color));
             caption.set_pivot_point(0.5f, 0.5f);
             caption.set_ellipsize(Pango.EllipsizeMode.END);
             caption.set_line_alignment(Pango.Alignment.CENTER);
