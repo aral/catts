@@ -46,7 +46,7 @@ namespace Gala.Plugins.AltTabPlus
         Gala.WindowManager? wm = null;
         Gala.ModalProxy modal_proxy = null;
 
-        Actor container;
+        Clutter.Actor container;
         RoundedActor wrapper;
         RoundedActor indicator;
         Text caption;
@@ -106,14 +106,14 @@ namespace Gala.Plugins.AltTabPlus
         }
 
         [CCode (instance_pos = -1)] void handle_switch_windows(
-                    Display display, Screen screen, Window? window,
+                    Display display, Window? window,
         #if HAS_MUTTER314
                     Clutter.KeyEvent event, KeyBinding binding)
         #else
                     X.Event event, KeyBinding binding)
         #endif
         {
-            var workspace = screen.get_active_workspace();
+            var workspace = display.get_workspace_manager().get_active_workspace();
 
             // copied from gnome-shell, finds the primary modifier in the mask
             var mask = binding.get_mask();
@@ -181,7 +181,7 @@ namespace Gala.Plugins.AltTabPlus
                 return;
             }
 
-            var screen = wm.get_screen();
+            var display = wm.get_display();
             indicator.set_easing_duration(200);
 
             container.margin_left = container.margin_top =
@@ -198,8 +198,8 @@ namespace Gala.Plugins.AltTabPlus
             caption.visible = false;
             caption.margin_bottom = caption.margin_top = WRAPPER_PADDING;
 
-            var monitor = screen.get_primary_monitor();
-            var geom = screen.get_monitor_geometry(monitor);
+            var monitor = display.get_primary_monitor();
+            var geom = display.get_monitor_geometry(monitor);
 
             float container_width;
             container.get_preferred_width(
@@ -267,7 +267,7 @@ namespace Gala.Plugins.AltTabPlus
             }
 
             var workspace = window.get_workspace();
-            if (workspace != wm.get_screen().get_active_workspace()) {
+            if (workspace != wm.get_display().get_workspace_manager().get_active_workspace()) {
                 workspace.activate_with_focus(window, time);
             } else {
                 window.activate(time);
@@ -292,7 +292,7 @@ namespace Gala.Plugins.AltTabPlus
 
         void next_window(Display display, Workspace? workspace, bool backward)
         {
-            Actor actor;
+            Clutter.Actor actor;
             var current = cur_icon;
 
             if (!backward) {
@@ -454,8 +454,7 @@ namespace Gala.Plugins.AltTabPlus
         }
 
         private uint32 get_timestamp() {
-            var screen = wm.get_screen();
-            return screen.get_display().get_current_time();
+            return wm.get_display().get_current_time();
         }
     }
 }
