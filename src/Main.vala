@@ -26,12 +26,12 @@ namespace Gala.Plugins.Catts
 {
     public delegate void ObjectCallback(Object object);
 
-    public const string VERSION = "0.2";
+    public const string VERSION = "1.0";
 
     // Visual Settings
     public const string ACTIVE_ICON_COLOR = "#5e5e6448";
     public const int ICON_SIZE = 96;
-    public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
+    //  public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
     public const int WRAPPER_BORDER_RADIUS = 12;
     public const int WRAPPER_PADDING = 12;
     public const string CAPTION_FONT_NAME = "Inter";
@@ -65,7 +65,11 @@ namespace Gala.Plugins.Catts
             KeyBinding.set_custom_handler("switch-windows", (Meta.KeyHandlerFunc) handle_switch_windows);
             KeyBinding.set_custom_handler("switch-windows-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
 
-            wrapper = new RoundedActor(Color.from_string(WRAPPER_BACKGROUND_COLOR), WRAPPER_BORDER_RADIUS);
+            // Set the colours based on the person’s light/dark scheme preference.
+            var granite_settings = Granite.Settings.get_default();
+            var wrapper_background_color = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.LIGHT || granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE ? "#EAEAEAC8" : "#333333C8";
+
+            wrapper = new RoundedActor(Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS);
             wrapper.reactive = true;
             wrapper.set_pivot_point(0.5f, 0.5f);
             wrapper.key_release_event.connect(key_release_event);
@@ -465,7 +469,7 @@ public Gala.PluginInfo register_plugin()
     return Gala.PluginInfo() {
         name = "Catts" + Gala.Plugins.Catts.VERSION,
         author = "Tom Beckmann, Mark Story, Aral Balkan, et al.",
-        plugin_type = typeof (Gala.Plugins.AltTabPlus.Main),
+        plugin_type = typeof (Gala.Plugins.Catts.Main),
         provides = Gala.PluginFunction.WINDOW_SWITCHER,
         load_priority = Gala.LoadPriority.IMMEDIATE
     };
