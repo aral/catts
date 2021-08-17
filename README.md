@@ -118,8 +118,6 @@ After you’ve built Catts, you can replace the task switcher in your main sessi
 sudo gala --replace &
 ```
 
-
-
 ## Version details, history, and credits
 
 Catts is only for elementary OS 6 (Odin).

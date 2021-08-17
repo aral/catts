@@ -1,7 +1,8 @@
+//  Modified by Aral Balkan [mail@ar.al], 2021
 //  Modified by Mark Story [mark@mark-story.com], 2020
 //  Modified by Popye [sailor3101@gmail.com], 2017
 //
-//  Original copyright (C) 2014, Tom Beckmann
+//  Original copyright ⓒ 2014, Tom Beckmann
 //  https://github.com/tom95/gala-alternate-alt-tab
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -21,11 +22,11 @@
 using Clutter;
 using Meta;
 
-namespace Gala.Plugins.AltTabPlus
+namespace Gala.Plugins.Catts
 {
     public delegate void ObjectCallback(Object object);
 
-    public const string SWITCHER_PLUGIN_VERSION = "0.2";
+    public const string VERSION = "0.2";
 
     // Visual Settings
     public const string ACTIVE_ICON_COLOR = "#5e5e6448";
@@ -33,7 +34,7 @@ namespace Gala.Plugins.AltTabPlus
     public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
     public const int WRAPPER_BORDER_RADIUS = 12;
     public const int WRAPPER_PADDING = 12;
-    public const string CAPTION_FONT_NAME = "DejaVu Sans Normal Book 11";
+    public const string CAPTION_FONT_NAME = "Inter";
     public const string CAPTION_COLOR = "#2e2e31";
 
     public class Main : Gala.Plugin
@@ -462,8 +463,8 @@ namespace Gala.Plugins.AltTabPlus
 public Gala.PluginInfo register_plugin()
 {
     return Gala.PluginInfo() {
-        name = "Elementary Alt Tab Plus ver." + Gala.Plugins.AltTabPlus.SWITCHER_PLUGIN_VERSION,
-        author = "Mark Story",
+        name = "Catts" + Gala.Plugins.Catts.VERSION,
+        author = "Tom Beckmann, Mark Story, Aral Balkan, et al.",
         plugin_type = typeof (Gala.Plugins.AltTabPlus.Main),
         provides = Gala.PluginFunction.WINDOW_SWITCHER,
         load_priority = Gala.LoadPriority.IMMEDIATE
