@@ -56,6 +56,11 @@ namespace Gala.Plugins.Catts
 
         WindowIcon? cur_icon = null;
 
+        // For some reason, on Odin, the height of the caption loses
+        // its padding after the first time the switcher displays. As a
+        // workaround, I store the initial value here once we have it.
+        float captionHeight = -1.0f;
+
         public override void initialize(Gala.WindowManager wm)
         {
             this.wm = wm;
@@ -68,6 +73,8 @@ namespace Gala.Plugins.Catts
             // Set the colours based on the person’s light/dark scheme preference.
             var granite_settings = Granite.Settings.get_default();
             var wrapper_background_color = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.LIGHT || granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE ? "#EAEAEAC8" : "#333333C8";
+
+            //  var accent_colour = granite_settings.prefers_accent_color;
 
             wrapper = new RoundedActor(Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS);
             wrapper.reactive = true;
@@ -111,11 +118,11 @@ namespace Gala.Plugins.Catts
         }
 
         [CCode (instance_pos = -1)] void handle_switch_windows(
-                    Display display, Window? window,
+            Display display, Window? window,
         #if HAS_MUTTER314
-                    Clutter.KeyEvent event, KeyBinding binding)
+            Clutter.KeyEvent event, KeyBinding binding)
         #else
-                    X.Event event, KeyBinding binding)
+            X.Event event, KeyBinding binding)
         #endif
         {
             var workspace = display.get_workspace_manager().get_active_workspace();
@@ -170,7 +177,6 @@ namespace Gala.Plugins.Catts
                 }
                 icon.set_pivot_point(0.5f, 0.5f);
                 container.add_child(icon);
-
             }
 
             return true;
@@ -224,19 +230,23 @@ namespace Gala.Plugins.Catts
             }
             container.get_preferred_size(null, null, null, out nat_height);
 
+            // For some reason, on Odin, the height of the caption loses
+            // its padding after the first time the switcher displays. As a
+            // workaround, I store the initial value here once we have it
+            // and use that correct value on subsequent attempts.
+            if (captionHeight == -1.0f) {
+                captionHeight = caption.height;
+            }
+
             wrapper.opacity = 0;
             wrapper.resize(
                 (int) nat_width,
-                (int) (
-                    (nat_height) +
-                    (caption.height - (container.margin_bottom - caption.height)) / 2
-                )
+                (int) (nat_height + (captionHeight - (container.margin_bottom - captionHeight)) / 2)
             );
             wrapper.set_position(
                 geom.x + (geom.width - wrapper.width) / 2,
                 geom.y + (geom.height - wrapper.height) / 2
             );
-
 
             wm.ui_group.insert_child_above(wrapper, null);
 
