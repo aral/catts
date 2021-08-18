@@ -1,4 +1,4 @@
-#! /usr/bin/zsh
+#!/usr/bin/env bash
 
 # Start nested xserver
 Xephyr :3 &
