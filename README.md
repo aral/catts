@@ -2,7 +2,7 @@
 
 Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for elementary OS 6 (Odin).
 
-![](./example.png)
+![Screenshot of Catts in action. The switcher contains four icons: Web, Email, Tasks, and Calculator. Tasks is selected. The switcher is in dark mode. The wall paper behind the switcher is an illustration in blues and purples of a woman standing with her arms stretched out to her sides as if to embrace the cityscape and vast open sky and clouds before her. At her feet, her cat mimics her pose.](./catts-screenshot.jpg)
 
 ## Install
 
