@@ -1,13 +1,78 @@
-# Gala Alt Tab Plus
+# Catts (Calm Alt-Tab Task Switcher)
 
-Replace the default alt-tab behavior of gala/elementary os with a simpler UI
-inspired by the Gnome switcher and MacOS.
+Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for elementary OS 6 (Odin).
 
-![](./example.png)
+![Screenshot of Catts in action. The switcher contains four icons: Web, Email, Tasks, and Calculator. Tasks is selected. The switcher is in dark mode. The wall paper behind the switcher is an illustration in blues and purples of a woman standing with her arms stretched out to her sides as if to embrace the cityscape and vast open sky and clouds before her. At her feet, her cat mimics her pose.](./catts-screenshot.jpg)
 
-This is based off of [tom95/gala-alternate-alt-tab](https://github.com/tom95/gala-alternate-alt-tab)
+## Install
 
-## Build Requirements
+1. Open up a Terminal session (press <kbd>⌘</kbd> + T).
+
+2. Copy and paste the following line which will run [this script](./install.sh) to install Catts on your system:
+
+    ```shell
+    wget -qO- https://raw.githubusercontent.com/small-tech/catts/master/install.sh | bash
+    ```
+3. <kbd>Alt</kbd> + <kbd>Tab</kbd> in peace and calm.
+
+### If Alt + Shift + Tab doesn't work…
+
+Elementary ships with `Alt + Shift` bound to switch keyboard layout. Go to _Settings_ → _Keyboard_ → _Layout_ and either set _Switch layout_ to _Disabled_ (if you don’t have multiple keyboard layouts) or to a different key combination. Elementary should really ship with this setting set to _Disabled_ by default.
+
+## Why?
+
+Because:
+
+  - <kbd>alt</kbd> + <kbd>tab</kbd> is a hidden, shortcut gesture for quickly switching between the various windows you have open.
+
+  - There is already a graphically-heavy, slower alternative with the “Show Desktop” (<kbd>⌘</kbd> + <kbd>↓</kbd>) gesture that gives you an overview of the windows within a workspace with window previews that can be used if differentiating windows based on their contents is important.
+
+(GNOME successfully expand this to differentiate between apps you have open and windows but Catts is simple and limited to windows at the moment. See [limitations](#limitations), below.)
+
+__In elementary OS, however the task switcher:__
+
+  - __Overloads the dock__ (the dock is transformed to include icons of windows and the icons there used to indicate which window you’re switching to). This breaks the physicality of the dock and overloads its meaning. That said, due to the amount of other animation going on, willing myself to concentrate on the dock is the only way I can use it at all.
+
+  - __Has excessive motion__ (animates windows backwards or forwards while dimming them in/out every time you press <kbd>alt</kbd> + <kbd>tab</kbd>). Imagine that happening with maximized or half-screen windows on a 24" monitor. I don’t normally have issues with motion and it makes me feel seasick after a few uses.
+
+  - __Gets stuck.__ Sometimes it will just get stuck in a state where no window is selected. Pressing <kbd>alt</kbd> + <kbd>tab</kbd> again gets you out of it.
+
+  - __Is one-way__ (<kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>tab</kbd>) doesn’t do anything.
+
+Basically, the task switcher in elementary OS is unusable.
+
+This one, despite its [limitations](#limitations), at least fixes the above issues.
+
+__Catts:__
+
+  - __Is calm.__ It does not animate my windows. I don’t want cognitive complexity when I’m fast switching between apps. I want to switch between apps. (I would even drop the easing animation of the highlight between apps. In fact, I might just fork it and do that.)
+
+  - __Uses icons.__ There is very little cognitive load to recognising an icon. There’s a reason we use icons of applications in menus, etc., instead of tiny thumbnails of them. The same principles apply here. (If we showed windows within an app as well, thumbnails might make more sense there but titles would probably still suffice. Which leads me to…)
+
+  - __Enables you to tell apart different windows of the same app__ (simply, by displaying some additional information about each).
+
+    _This could be handled differently if desired and isn’t the most aesthetically-pleasing but functional features below delightful for a reason on the ethical design pyramid (https://2017.ind.ie/ethical-design/). Ideally, of course, I would be able to switch between windows of the same app differently and not have to worry about which workspace or screen my apps are. All these add cognitive load that can make me forget what I am doing._
+
+I feel that elementary OS would be far more usable – especially for folks just coming over from macOS or Windows – if Catts (or something like it) were to [replace the official task switcher in elementary OS](https://github.com/elementary/gala/discussions/72#discussioncomment-219601).
+
+## Limitations
+
+Catts implements the bare minimum functionality for a calm task switching experience and nothing more. Part of that is because I (Aral) don’t have the time to learn the innards of elementary OS to improve it.
+
+Specifically, it has the following major limitations:
+
+  - __Drag and drop does not work.__ You should be able to both (a) continue a drag and drop that you started prior to activating the task switcher (e.g., you want to drag a photo from Photos into the app you’re working in) and (b) you should be able to drag and drop onto the icons which should act as proxies for the apps/windows themselves.
+
+  - __Does not group windows by app.__ Catts only deals with windows at the moment. It is not smart enough to group them by app or provide a distinction between switching between apps and windows. Pop!_OS used to do this well from what I remember but it seems [they might have broken it too](https://www.reddit.com/r/pop_os/comments/nsr3eq/pop_os_devs_why_is_switch_applications_task/) (I haven’t tested it recently.)
+
+  - __Cannot exit app with <kbd>Ctrl</kbd> + <kbd>Q</kbd> while selected.__ It is a productivity boost to be able to use the task switcher to close and app by quickly selecting its icon and, while continuing to hold down <kbd>Alt</kbd>, pressing <kbd>Ctrl</kbd> + <kbd>Q</kbd> to quit the selected app (especially when you want to quit several apps together). This is currently not supported by Catts. The workaround is to switch to the app first and then press <kbd>Ctrl</kbd> + <kbd>Q</kbd>.
+---
+
+## For developers
+
+The following are technical details for developers who want to manually compile or hack on Catts.
+
+### Dependencies
 
 * elementary-sdk
 * libclutter-1.0-dev
@@ -15,9 +80,7 @@ This is based off of [tom95/gala-alternate-alt-tab](https://github.com/tom95/gal
 
 Make sure you `apt install` all of the above requirements before trying to build.
 
-## Install
-
-build from sources:
+## Build
 
 ```bash
 mkdir build
@@ -25,23 +88,25 @@ cd build
 cmake ..
 make
 sudo make install
-
-# Restart gala
-sudo gala --replace &
 ```
 
-## Running tests
+## Test
 
 Modifying the primary gala instance can result in a broken desktop that requires a restart to fix.
-To avoid this, you should use `xephyr`:
+
+After following the Installation instructions, stop before the ‘Restart Gala’ step and, instead, use [xephyr](https://en.wikipedia.org/wiki/Xephyr) to create a separate session:
 
 ```bash
 sudo apt install xserver-xephyr
-# Run the test script starts up xephyr, calculator and xterm
+
+# Running the test script starts up a new session using
+# xephyr and launches the Calculator, and Tasks apps.
 ./test.sh
 ```
 
-With xephyr active you can give it focus with `ctrl-shift` and test out the new alt-tab behavior.
+When the xephyr window appears, give it focus by pressing <kbd>ctrl</kbd> + <kbd>shift</kbd> and test out the new alt-tab behaviour.
+
+__Note:__ Don’t have the Calculator or Tasks apps running in your primary session before running the test script as that will lead to the app not launching in your test session.
 
 Once you're done testing you can remove the plugin with.
 
@@ -49,13 +114,25 @@ Once you're done testing you can remove the plugin with.
 ./cleanup.sh
 ```
 
-## Troubleshooting
+## Replace Gala
 
-### Alt + Shift + Tab doesn't work
+After you’ve built Catts, you can replace the task switcher in your main session by running:
 
-Elementary ships with `Alt + Shift` bound 'switch layouts'. Make sure you go
-into 'Settings > Keyboard > Layout' and remove/reassign this keybinding.
+```shell
+# Restart Gala
+sudo gala --replace &
+```
 
-## Tested versions
+## Version details, history, and credits
 
-* Elementary OS 5.1.6
+Catts is only for elementary OS 6 (Odin).
+
+For elementary OS versions 5.x, please use [Gala Alt Tab Plus]().
+
+Catts is based on [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus) by [Mark Story](https://github.com/markstory) which is based on [Gala Window Manager Alternative Window Switcher](https://github.com/tom95/gala-alternate-alt-tab) by [Tom Beckmann](https://github.com/tom95).
+
+## License
+
+Portions copyright ⓒ 2021 Aral Balkan, Small Technology Foundation
+
+Licensed under [GNU GPL 3.0](./LICENSE)

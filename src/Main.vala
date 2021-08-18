@@ -1,7 +1,8 @@
+//  Modified by Aral Balkan [mail@ar.al], 2021
 //  Modified by Mark Story [mark@mark-story.com], 2020
 //  Modified by Popye [sailor3101@gmail.com], 2017
 //
-//  Original copyright (C) 2014, Tom Beckmann
+//  Original copyright ⓒ 2014, Tom Beckmann
 //  https://github.com/tom95/gala-alternate-alt-tab
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -21,20 +22,20 @@
 using Clutter;
 using Meta;
 
-namespace Gala.Plugins.AltTabPlus
+namespace Gala.Plugins.Catts
 {
     public delegate void ObjectCallback(Object object);
 
-    public const string SWITCHER_PLUGIN_VERSION = "0.2";
+    public const string VERSION = "1.0";
 
     // Visual Settings
-    public const string ACTIVE_ICON_COLOR = "#5e5e6448";
+    //  public const string ACTIVE_ICON_COLOR = "#5e5e6448";
     public const int ICON_SIZE = 96;
-    public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
+    //  public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
     public const int WRAPPER_BORDER_RADIUS = 12;
     public const int WRAPPER_PADDING = 12;
-    public const string CAPTION_FONT_NAME = "DejaVu Sans Normal Book 11";
-    public const string CAPTION_COLOR = "#2e2e31";
+    public const string CAPTION_FONT_NAME = "Inter";
+    //  public const string CAPTION_COLOR = "#2e2e31";
 
     public class Main : Gala.Plugin
     {
@@ -46,7 +47,7 @@ namespace Gala.Plugins.AltTabPlus
         Gala.WindowManager? wm = null;
         Gala.ModalProxy modal_proxy = null;
 
-        Actor container;
+        Clutter.Actor container;
         RoundedActor wrapper;
         RoundedActor indicator;
         Text caption;
@@ -54,6 +55,11 @@ namespace Gala.Plugins.AltTabPlus
         int modifier_mask;
 
         WindowIcon? cur_icon = null;
+
+        // For some reason, on Odin, the height of the caption loses
+        // its padding after the first time the switcher displays. As a
+        // workaround, I store the initial value here once we have it.
+        float captionHeight = -1.0f;
 
         public override void initialize(Gala.WindowManager wm)
         {
@@ -64,7 +70,40 @@ namespace Gala.Plugins.AltTabPlus
             KeyBinding.set_custom_handler("switch-windows", (Meta.KeyHandlerFunc) handle_switch_windows);
             KeyBinding.set_custom_handler("switch-windows-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
 
-            wrapper = new RoundedActor(Color.from_string(WRAPPER_BACKGROUND_COLOR), WRAPPER_BORDER_RADIUS);
+            var granite_settings = Granite.Settings.get_default();
+
+            // Redraw the components if the colour scheme changes.
+            granite_settings.notify["prefers-color-scheme"].connect(() => {
+                createComponents(granite_settings);
+            });
+
+            // Carry out the initial draw
+            createComponents(granite_settings, true);
+        }
+
+        private void createComponents (Granite.Settings granite_settings, bool initial = false) {
+            if (initial) {
+                destroy();
+            }
+
+            // Set the colours based on the person’s light/dark scheme preference.
+            var wrapper_background_color = "red";
+            var active_icon_color = "blue";
+            var caption_color = "green";
+
+            if (granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.LIGHT || granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                // Light mode.
+                wrapper_background_color = "#EAEAEAC8";
+                active_icon_color = "#5e5e6448";
+                caption_color = "#2e2e31";
+            } else {
+                // Dark mode.
+                wrapper_background_color = "#5e5e64C8";
+                active_icon_color = "#EAEAEA48";
+                caption_color = "#ffffff";
+            }
+
+            wrapper = new RoundedActor(Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS);
             wrapper.reactive = true;
             wrapper.set_pivot_point(0.5f, 0.5f);
             wrapper.key_release_event.connect(key_release_event);
@@ -77,13 +116,13 @@ namespace Gala.Plugins.AltTabPlus
             container.button_press_event.connect(container_mouse_press);
             container.motion_event.connect(container_motion_event);
 
-            indicator = new RoundedActor(Color.from_string(ACTIVE_ICON_COLOR), WRAPPER_BORDER_RADIUS);
+            indicator = new RoundedActor(Color.from_string(active_icon_color), WRAPPER_BORDER_RADIUS);
 
             indicator.margin_left = indicator.margin_top =
                 indicator.margin_right = indicator.margin_bottom = 0;
             indicator.set_pivot_point(0.5f, 0.5f);
 
-            caption = new Text.full(CAPTION_FONT_NAME, "", Color.from_string(CAPTION_COLOR));
+            caption = new Text.full(CAPTION_FONT_NAME, "", Color.from_string(caption_color));
             caption.set_pivot_point(0.5f, 0.5f);
             caption.set_ellipsize(Pango.EllipsizeMode.END);
             caption.set_line_alignment(Pango.Alignment.CENTER);
@@ -106,14 +145,14 @@ namespace Gala.Plugins.AltTabPlus
         }
 
         [CCode (instance_pos = -1)] void handle_switch_windows(
-                    Display display, Screen screen, Window? window,
+            Display display, Window? window,
         #if HAS_MUTTER314
-                    Clutter.KeyEvent event, KeyBinding binding)
+            Clutter.KeyEvent event, KeyBinding binding)
         #else
-                    X.Event event, KeyBinding binding)
+            X.Event event, KeyBinding binding)
         #endif
         {
-            var workspace = screen.get_active_workspace();
+            var workspace = display.get_workspace_manager().get_active_workspace();
 
             // copied from gnome-shell, finds the primary modifier in the mask
             var mask = binding.get_mask();
@@ -165,7 +204,6 @@ namespace Gala.Plugins.AltTabPlus
                 }
                 icon.set_pivot_point(0.5f, 0.5f);
                 container.add_child(icon);
-
             }
 
             return true;
@@ -181,7 +219,7 @@ namespace Gala.Plugins.AltTabPlus
                 return;
             }
 
-            var screen = wm.get_screen();
+            var display = wm.get_display();
             indicator.set_easing_duration(200);
 
             container.margin_left = container.margin_top =
@@ -198,8 +236,8 @@ namespace Gala.Plugins.AltTabPlus
             caption.visible = false;
             caption.margin_bottom = caption.margin_top = WRAPPER_PADDING;
 
-            var monitor = screen.get_primary_monitor();
-            var geom = screen.get_monitor_geometry(monitor);
+            var monitor = display.get_primary_monitor();
+            var geom = display.get_monitor_geometry(monitor);
 
             float container_width;
             container.get_preferred_width(
@@ -219,19 +257,23 @@ namespace Gala.Plugins.AltTabPlus
             }
             container.get_preferred_size(null, null, null, out nat_height);
 
+            // For some reason, on Odin, the height of the caption loses
+            // its padding after the first time the switcher displays. As a
+            // workaround, I store the initial value here once we have it
+            // and use that correct value on subsequent attempts.
+            if (captionHeight == -1.0f) {
+                captionHeight = caption.height;
+            }
+
             wrapper.opacity = 0;
             wrapper.resize(
                 (int) nat_width,
-                (int) (
-                    (nat_height) +
-                    (caption.height - (container.margin_bottom - caption.height)) / 2
-                )
+                (int) (nat_height + (captionHeight - (container.margin_bottom - captionHeight)) / 2)
             );
             wrapper.set_position(
                 geom.x + (geom.width - wrapper.width) / 2,
                 geom.y + (geom.height - wrapper.height) / 2
             );
-
 
             wm.ui_group.insert_child_above(wrapper, null);
 
@@ -267,7 +309,7 @@ namespace Gala.Plugins.AltTabPlus
             }
 
             var workspace = window.get_workspace();
-            if (workspace != wm.get_screen().get_active_workspace()) {
+            if (workspace != wm.get_display().get_workspace_manager().get_active_workspace()) {
                 workspace.activate_with_focus(window, time);
             } else {
                 window.activate(time);
@@ -292,7 +334,7 @@ namespace Gala.Plugins.AltTabPlus
 
         void next_window(Display display, Workspace? workspace, bool backward)
         {
-            Actor actor;
+            Clutter.Actor actor;
             var current = cur_icon;
 
             if (!backward) {
@@ -361,16 +403,14 @@ namespace Gala.Plugins.AltTabPlus
 
             if (initial) {
                 indicator.visible = true;
-                indicator.save_easing_state();
-                indicator.set_easing_duration(0);
             }
 
+            // Move the indicator without animating it.
+            indicator.save_easing_state();
+            indicator.set_easing_duration(0);
             indicator.x = container.margin_left + (container.get_n_children() > 1 ? x : 0) - WRAPPER_PADDING;
             indicator.y = container.margin_top + y - WRAPPER_PADDING;
-
-            if (initial) {
-                indicator.restore_easing_state();
-            }
+            indicator.restore_easing_state();
             update_caption_text(initial);
         }
 
@@ -378,6 +418,7 @@ namespace Gala.Plugins.AltTabPlus
         {
             if (opened) {
                 //FIXME: problem if layout swicher across witch window switcher shortcut
+                //FIXME: ^^^ I don’t understand what this comment means. Something about witches? (Aral)
                 close_switcher(get_timestamp());
             }
         }
@@ -454,8 +495,7 @@ namespace Gala.Plugins.AltTabPlus
         }
 
         private uint32 get_timestamp() {
-            var screen = wm.get_screen();
-            return screen.get_display().get_current_time();
+            return wm.get_display().get_current_time();
         }
     }
 }
@@ -463,9 +503,9 @@ namespace Gala.Plugins.AltTabPlus
 public Gala.PluginInfo register_plugin()
 {
     return Gala.PluginInfo() {
-        name = "Elementary Alt Tab Plus ver." + Gala.Plugins.AltTabPlus.SWITCHER_PLUGIN_VERSION,
-        author = "Mark Story",
-        plugin_type = typeof (Gala.Plugins.AltTabPlus.Main),
+        name = "Catts" + Gala.Plugins.Catts.VERSION,
+        author = "Tom Beckmann, Mark Story, Aral Balkan, et al.",
+        plugin_type = typeof (Gala.Plugins.Catts.Main),
         provides = Gala.PluginFunction.WINDOW_SWITCHER,
         load_priority = Gala.LoadPriority.IMMEDIATE
     };
