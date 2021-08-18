@@ -15,16 +15,17 @@ Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for elementary O
     ```
 3. <kbd>Alt</kbd> + <kbd>Tab</kbd> in peace and calm.
 
-## Troubleshooting
+### If Alt + Shift + Tab doesn't work…
 
-### Alt + Shift + Tab doesn't work
-
-Elementary ships with `Alt + Shift` bound 'switch layouts'. Make sure you go
-into _Settings_ → _Keyboard_ → _Layout_ and remove and reassign this keybinding.
+Elementary ships with `Alt + Shift` bound to switch keyboard layout. Go to _Settings_ → _Keyboard_ → _Layout_ and either set _Switch layout_ to _Disabled_ (if you don’t have multiple keyboard layouts) or to a different key combination. Elementary should really ship with this setting set to _Disabled_ by default.
 
 ## Why?
 
-Because <kbd>alt</kbd> + <kbd>tab</kbd> is a hidden, shortcut gesture for quickly switching between the various windows you have open.
+Because:
+
+  - <kbd>alt</kbd> + <kbd>tab</kbd> is a hidden, shortcut gesture for quickly switching between the various windows you have open.
+
+  - There is already a graphically-heavy, slower alternative with the “Show Desktop” (<kbd>⌘</kbd> + <kbd>↓</kbd>) gesture that gives you an overview of the windows within a workspace with window previews that can be used if differentiating windows based on their contents is important.
 
 (GNOME successfully expand this to differentiate between apps you have open and windows but Catts is simple and limited to windows at the moment. See [limitations](#limitations), below.)
 
