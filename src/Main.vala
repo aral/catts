@@ -70,12 +70,27 @@ namespace Gala.Plugins.Catts
             KeyBinding.set_custom_handler("switch-windows", (Meta.KeyHandlerFunc) handle_switch_windows);
             KeyBinding.set_custom_handler("switch-windows-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
 
+            var granite_settings = Granite.Settings.get_default();
+
+            // Redraw the components if the colour scheme changes.
+            granite_settings.notify["prefers-color-scheme"].connect(() => {
+                createComponents(granite_settings);
+            });
+
+            // Carry out the initial draw
+            createComponents(granite_settings, true);
+        }
+
+        private void createComponents (Granite.Settings granite_settings, bool initial = false) {
+            if (initial) {
+                destroy();
+            }
+
             // Set the colours based on the person’s light/dark scheme preference.
             var wrapper_background_color = "red";
             var active_icon_color = "blue";
             var caption_color = "green";
 
-            var granite_settings = Granite.Settings.get_default();
             if (granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.LIGHT || granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
                 // Light mode.
                 wrapper_background_color = "#EAEAEAC8";
