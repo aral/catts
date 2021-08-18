@@ -34,7 +34,7 @@ __In elementary OS, however the task switcher:__
 
   - __Has excessive motion__ (animates windows backwards or forwards while dimming them in/out every time you press <kbd>alt</kbd> + <kbd>tab</kbd>). Imagine that happening with maximized or half-screen windows on a 24" monitor. I don’t normally have issues with motion and it makes me feel seasick after a few uses.
 
-  - __Gets stuck.__ Sometimes it will just get stuck in a state where no window is selected. Presing <kbd>alt</kbd> + <kbd>tab</kbd> again gets you out of it.
+  - __Gets stuck.__ Sometimes it will just get stuck in a state where no window is selected. Pressing <kbd>alt</kbd> + <kbd>tab</kbd> again gets you out of it.
 
   - __Is one-way__ (<kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>tab</kbd>) doesn’t do anything.
 
@@ -44,7 +44,7 @@ This one, despite its [limitations](#limitations), at least fixes the above issu
 
 __Catts:__
 
-  - __Is calm.__ It does not animate my windows. I don’t want congitive complexity when I’m fast switching between apps. I want to switch between apps. (I would even drop the easing animation of the highlight between apps. In fact, I might just fork it and do that.)
+  - __Is calm.__ It does not animate my windows. I don’t want cognitive complexity when I’m fast switching between apps. I want to switch between apps. (I would even drop the easing animation of the highlight between apps. In fact, I might just fork it and do that.)
 
   - __Uses icons.__ There is very little cognitive load to recognising an icon. There’s a reason we use icons of applications in menus, etc., instead of tiny thumbnails of them. The same principles apply here. (If we showed windows within an app as well, thumbnails might make more sense there but titles would probably still suffice. Which leads me to…)
 
@@ -91,7 +91,7 @@ sudo make install
 
 Modifying the primary gala instance can result in a broken desktop that requires a restart to fix.
 
-After following the Installation structions, stop before the ‘Restart Gala’ step and, instead, use [xephyr](https://en.wikipedia.org/wiki/Xephyr) to create a separate session:
+After following the Installation instructions, stop before the ‘Restart Gala’ step and, instead, use [xephyr](https://en.wikipedia.org/wiki/Xephyr) to create a separate session:
 
 ```bash
 sudo apt install xserver-xephyr
@@ -101,7 +101,9 @@ sudo apt install xserver-xephyr
 ./test.sh
 ```
 
-When the xephyr window appears, give it focus by pressing <kbd>ctrl</kbd> + <kbd>shift</kbd> and test out the new alt-tab behavior.
+When the xephyr window appears, give it focus by pressing <kbd>ctrl</kbd> + <kbd>shift</kbd> and test out the new alt-tab behaviour.
+
+__Note:__ Don’t have the Calculator or Tasks apps running in your primary session before running the test script as that will lead to the app not launching in your test session.
 
 Once you're done testing you can remove the plugin with.
 
