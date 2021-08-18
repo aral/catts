@@ -403,16 +403,14 @@ namespace Gala.Plugins.Catts
 
             if (initial) {
                 indicator.visible = true;
-                indicator.save_easing_state();
-                indicator.set_easing_duration(0);
             }
 
+            // Move the indicator without animating it.
+            indicator.save_easing_state();
+            indicator.set_easing_duration(0);
             indicator.x = container.margin_left + (container.get_n_children() > 1 ? x : 0) - WRAPPER_PADDING;
             indicator.y = container.margin_top + y - WRAPPER_PADDING;
-
-            if (initial) {
-                indicator.restore_easing_state();
-            }
+            indicator.restore_easing_state();
             update_caption_text(initial);
         }
 
@@ -420,6 +418,7 @@ namespace Gala.Plugins.Catts
         {
             if (opened) {
                 //FIXME: problem if layout swicher across witch window switcher shortcut
+                //FIXME: ^^^ I don’t understand what this comment means. Something about witches? (Aral)
                 close_switcher(get_timestamp());
             }
         }
