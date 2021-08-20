@@ -40,10 +40,16 @@ Please use the copy/clipboard button that appears when you hover over a code sni
 
 4. ### __Reboot.__
 
-    If you don’t want to reboot, you can also start using Catts right away by issuing the following command (but it’s cleaner if you reboot).
+    If you don’t want to restart your computer, you can also start using Catts right away by issuing the following command:
 
     ```shell
     sudo gala --replace &
+    ```
+
+    But it’s cleaner if you reboot. And less to type too:
+
+    ```shell
+    reboot
     ```
 
 You can now <kbd>Alt</kbd> + <kbd>Tab</kbd> in peace.
