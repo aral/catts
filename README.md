@@ -91,7 +91,7 @@ __Catts:__
 
   - __Enables you to tell apart different windows of the same app__ (simply, by displaying some additional information about each).
 
-    _This could be handled differently if desired and isn’t the most aesthetically-pleasing but functional features below delightful for a reason on the ethical design pyramid (https://2017.ind.ie/ethical-design/). Ideally, of course, I would be able to switch between windows of the same app differently and not have to worry about which workspace or screen my apps are. All these add cognitive load that can make me forget what I am doing._
+    _This could be handled differently if desired and isn’t the most aesthetically-pleasing but [functional features below delightful](https://2017.ind.ie/ethical-design/) for a reason on the [ethical design pyramid](https://2017.ind.ie/ethical-design/). Ideally, of course, I would be able to switch between windows of the same app differently and not have to worry about which workspace or screen my apps are. All these add cognitive load that can make me forget what I am doing._
 
 I feel that elementary OS would be far more usable – especially for folks just coming over from macOS or Windows – if Catts (or something like it) were to [replace the official task switcher in elementary OS](https://github.com/elementary/gala/discussions/72#discussioncomment-219601).
 
