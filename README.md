@@ -57,7 +57,7 @@ You can now <kbd>Alt</kbd> + <kbd>Tab</kbd> in peace.
 
 ### If Alt + Shift + Tab doesn't work…
 
-Elementary ships with `Alt + Shift` bound to switch keyboard layout. Go to _Settings_ → _Keyboard_ → _Layout_ and either set _Switch layout_ to _Disabled_ (if you don’t have multiple keyboard layouts) or to a different key combination. Elementary should really ship with this setting set to _Disabled_ by default.
+Elementary ships with <kdb>Alt</kbd> + <kbd>Shift</kbd> bound to switch keyboard layout. Go to _Settings_ → _Keyboard_ → _Layout_ and either set _Switch layout_ to _Disabled_ (if you don’t have multiple keyboard layouts) or to a different key combination. Elementary should really ship with this setting set to _Disabled_ by default.
 
 ## Why?
 
