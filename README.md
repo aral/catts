@@ -91,19 +91,22 @@ __Catts:__
 
   - __Uses the system colour scheme.__ Love Dark Mode? Catts does too.
 
-I feel that elementary OS would be far more usable – especially for folks just coming over from macOS or Windows – if Catts (or something like it) were to [replace the official task switcher in elementary OS](https://github.com/elementary/gala/discussions/72#discussioncomment-219601).
+I feel elementary OS would be far more usable in general – not to mention more familiar for folks just coming over from macOS or Windows – if Catts (or something like it) were to [replace the official task switcher in elementary OS](https://github.com/elementary/gala/discussions/72#discussioncomment-219601).
 
 ## Limitations
 
-Catts implements the bare minimum functionality for a calm task switching experience and nothing more. Part of that is because I (Aral) don’t have the time to learn the innards of elementary OS to improve it.
+Catts implements the bare minimum functionality for a calm task switching experience and nothing more.
 
-Specifically, it has the following major limitations:
+It currently has the following major limitations:
 
   - __Drag and drop does not work.__ You should be able to both (a) continue a drag and drop that you started prior to activating the task switcher (e.g., you want to drag a photo from Photos into the app you’re working in) and (b) you should be able to drag and drop onto the icons which should act as proxies for the apps/windows themselves.
 
   - __Does not group windows by app.__ Catts only deals with windows at the moment. It is not smart enough to group them by app or provide a distinction between switching between apps and windows. Pop!_OS used to do this well from what I remember but it seems [they might have broken it too](https://www.reddit.com/r/pop_os/comments/nsr3eq/pop_os_devs_why_is_switch_applications_task/) (I haven’t tested it recently.)
 
   - __Cannot exit app with <kbd>Ctrl</kbd> + <kbd>Q</kbd> while selected.__ It is a productivity boost to be able to use the task switcher to close and app by quickly selecting its icon and, while continuing to hold down <kbd>Alt</kbd>, pressing <kbd>Ctrl</kbd> + <kbd>Q</kbd> to quit the selected app (especially when you want to quit several apps together). This is currently not supported by Catts. The workaround is to switch to the app first and then press <kbd>Ctrl</kbd> + <kbd>Q</kbd>.
+
+If you’d like to help us implement any of these features, [please say hello on Discussions](https://github.com/small-tech/catts/discussions) and tell us which of these limitations you’d like to help overcome.
+
 ---
 
 ## For developers
