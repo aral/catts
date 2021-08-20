@@ -83,9 +83,9 @@ This one, despite its [limitations](#limitations), at least fixes the above issu
 
 __Catts:__
 
-  - __Is calm.__ It does not animate my windows. I don’t want cognitive complexity when I’m fast switching between apps. I want to switch between apps. (I would even drop the easing animation of the highlight between apps. In fact, I might just fork it and do that.)
+  - __Is calm.__ It does not animate my windows. I don’t want cognitive complexity when I’m fast switching between apps. I want to select the app I want to switch to and switch to it. That’s it.
 
-  - __Uses icons.__ There is very little cognitive load to recognising an icon. There’s a reason we use icons of applications in menus, etc., instead of tiny thumbnails of them. The same principles apply here. (If we showed windows within an app as well, thumbnails might make more sense there but titles would probably still suffice. Which leads me to…)
+  - __Uses icons.__ There is very little cognitive load to recognising an icon. There’s a reason we use icons of applications in menus, etc., instead of tiny thumbnails of them. The same principles apply here.
 
   - __Enables you to tell apart different windows of the same app__ (simply, by displaying the window title in the switcher alongside the icon).
 
