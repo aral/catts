@@ -1,19 +1,51 @@
-# Catts (Calm Alt-Tab Task Switcher)
+# Catts (Calmer Alt-Tab Task Switcher)
 
-Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for elementary OS 6 (Odin).
+__Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for elementary OS 6 (Odin).__
+
+For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus).
 
 ![Screenshot of Catts in action. The switcher contains four icons: Web, Email, Tasks, and Calculator. Tasks is selected. The switcher is in dark mode. The wall paper behind the switcher is an illustration in blues and purples of a woman standing with her arms stretched out to her sides as if to embrace the cityscape and vast open sky and clouds before her. At her feet, her cat mimics her pose.](./catts-screenshot.jpg)
 
 ## Install
 
-1. Open up a Terminal session (press <kbd>⌘</kbd> + T).
+_(Want to build it yourself instead? See the [for developers](#for-developers) section.)_
 
-2. Copy and paste the following line which will run [this script](./install.sh) to install Catts on your system:
+> __Catts is in Beta. If you experience any problems installing or using it, please [open an issue](issues) and let me know.__
+
+Open up a Terminal session (press <kbd>⌘</kbd> + T) and copy and paste the following commands to install Catts on your system:
+
+1. ### __Download Catts__ shared library binary ([libgala-catts.so](https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so)) from [small-tech.org](https://small-tech.org) to the temporary directory on your computer (_/tmp_):
 
     ```shell
-    wget -qO- https://raw.githubusercontent.com/small-tech/catts/master/install.sh | bash
+    wget https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so -O /tmp/libgala-catts.so
     ```
-3. <kbd>Alt</kbd> + <kbd>Tab</kbd> in peace and calm.
+
+2. ### __Verify the downloaded file__ is what you expect:
+
+    ```shell
+    bash -lic "test \"\$(sha256sum /tmp/libgala-catts.so)\" = 'c73ce1c713fbf8b7e261c20d70268580fa6f7d1bd5a70a4e1ba5ea50d20206fc  /tmp/libgala-catts.so' && echo 'Download OK.' || echo 'Security error. File has been tampered with. DO NOT PROCEED!'"
+    ```
+
+    __Unless you see `Download OK`, do NOT proceed to Step 3.__ (Instead, [open an issue here](issues/) and let us know what happened.)
+
+3. ### __Install the downloaded file__ as a [Gala](https://github.com/elementary/gala) plugin:
+
+    (Terminal will warn you that you are trying to paste a command that requires administrative privileges. When you press return to execute it, the command will prompt you to allow it administrative privileges by entering your system password.)
+
+    ```shell
+    sudo mv /tmp/libgala-catts.so /usr/lib/x86_64-linux-gnu/gala/plugins/; sudo chown root:root /usr/lib/x86_64-linux-gnu/gala/plugins/libgala-catts.so
+    ```
+
+4. ### __Reboot.__
+
+    If you don’t want to reboot, you can also start using Catts right away by issuing the following command (but it’s cleaner if you reboot).
+
+    ```shell
+    sudo gala --replace &
+    ```
+
+You can now <kbd>Alt</kbd> + <kbd>Tab</kbd> in peace.
+
 
 ### If Alt + Shift + Tab doesn't work…
 
@@ -125,14 +157,14 @@ sudo gala --replace &
 
 ## Version details, history, and credits
 
-Catts is only for elementary OS 6 (Odin).
+__Catts is only for elementary OS 6 (Odin).__
 
-For elementary OS versions 5.x, please use [Gala Alt Tab Plus]().
+For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus).
 
 Catts is based on [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus) by [Mark Story](https://github.com/markstory) which is based on [Gala Window Manager Alternative Window Switcher](https://github.com/tom95/gala-alternate-alt-tab) by [Tom Beckmann](https://github.com/tom95).
 
 ## License
 
-Portions copyright ⓒ 2021 Aral Balkan, Small Technology Foundation
+Portions copyright ⓒ 2021 [Aral Balkan](https://ar.al), [Small Technology Foundation](https://small-tech.org)
 
 Licensed under [GNU GPL 3.0](./LICENSE)
