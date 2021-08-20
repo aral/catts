@@ -101,7 +101,7 @@ It currently has the following major limitations:
 
   - [__Drag and drop does not work.__](https://github.com/small-tech/catts/issues/2) You should be able to both (a) continue a drag and drop that you started prior to activating the task switcher (e.g., you want to drag a photo from Photos into the app you’re working in) and (b) you should be able to drag and drop onto the icons which should act as proxies for the apps/windows themselves.
 
-  _ [__Only includes apps in the current workspace.__](https://github.com/small-tech/catts/issues/3) You should be able to switch to apps in any workspace.
+  - [__Only includes apps in the current workspace.__](https://github.com/small-tech/catts/issues/3) You should be able to switch to apps in any workspace.
 
   - [__Cannot exit app with <kbd>Ctrl</kbd> + <kbd>Q</kbd> while selected.__](https://github.com/small-tech/catts/issues/5) It is a productivity boost to be able to use the task switcher to close and app by quickly selecting its icon and, while continuing to hold down <kbd>Alt</kbd>, pressing <kbd>Ctrl</kbd> + <kbd>Q</kbd> to quit the selected app (especially when you want to quit several apps together). This is currently not supported by Catts. The workaround is to switch to the app first and then press <kbd>Ctrl</kbd> + <kbd>Q</kbd>.
 
