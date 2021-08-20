@@ -163,6 +163,12 @@ After you’ve built Catts, you can replace the task switcher in your main sessi
 sudo gala --replace &
 ```
 
+## Like this? Fund us!
+
+[Small Technology Foundation](https://small-tech.org) is a tiny, independent not-for-profit.
+
+We exist in part thanks to patronage by people like you. If you share [our vision](https://small-tech.org/about/#small-technology) and want to support our work, please [become a patron or donate to us](https://small-tech.org/fund-us) today and help us continue to exist.
+
 ## Version details, history, and credits
 
 __Catts is only for elementary OS 6 (Odin).__
