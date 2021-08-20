@@ -43,7 +43,7 @@ Please use the copy/clipboard button that appears when you hover over a code sni
     If you don’t want to restart your computer, you can also start using Catts right away by issuing the following command:
 
     ```shell
-    sudo gala --replace &
+    gala --replace &
     ```
 
     But it’s cleaner if you reboot. And less to type too:
