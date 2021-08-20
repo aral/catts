@@ -8,7 +8,7 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 
 ## Install
 
-> __Catts is in Beta.__ If you experience any problems installing or using it, please [open an issue](issues) and let me know.
+> __Catts is in Beta.__ If you experience any problems installing or using it, please [open an issue](https://github.com/small-tech/catts/issues) and let me know.
 >
 > _The following instructions download and install the Catts shared library binary. If you want to build it yourself instead, please see the [for developers](#for-developers) section._
 
@@ -28,7 +28,7 @@ Please use the copy/clipboard button that appears when you hover over a code sni
     bash -lic "test \"\$(sha256sum /tmp/libgala-catts.so)\" = 'c73ce1c713fbf8b7e261c20d70268580fa6f7d1bd5a70a4e1ba5ea50d20206fc  /tmp/libgala-catts.so' && echo 'Download OK.' || echo 'Security error. File has been tampered with. DO NOT PROCEED!'"
     ```
 
-    __Unless you see `Download OK`, do NOT proceed to Step 3.__ (Instead, [open an issue here](issues/) and let us know what happened.)
+    __Unless you see `Download OK`, do NOT proceed to Step 3.__ (Instead, [open an issue here](https://github.com/small-tech/catts/issues) and let us know what happened.)
 
 3. ### __Install the downloaded file__ as a [Gala](https://github.com/elementary/gala) plugin:
 
