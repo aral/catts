@@ -1,6 +1,6 @@
 # Catts (Calmer Alt-Tab Task Switcher)
 
-__Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for elementary OS 6 (Odin).__
+__Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for [elementary OS 6 (Odin)](https://elementary.io).__
 
 For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus).
 
