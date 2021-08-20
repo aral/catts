@@ -67,7 +67,7 @@ Because:
 
   - There is already a graphically-heavy, slower alternative with the “Show Desktop” (<kbd>⌘</kbd> + <kbd>↓</kbd>) gesture that gives you an overview of the windows within a workspace with window previews that can be used if differentiating windows based on their contents is important.
 
-(GNOME successfully expand this to differentiate between apps you have open and windows but Catts is simple and limited to windows at the moment. See [limitations](#limitations), below.)
+(Catts is limited to windows at the moment. It does not group windows by app. See [limitations](#limitations), below.)
 
 __In elementary OS, however the task switcher:__
 
