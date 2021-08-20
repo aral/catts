@@ -12,7 +12,9 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 >
 > _The following instructions download and install the Catts shared library binary. If you want to build it yourself instead, please see the [for developers](#for-developers) section._
 
-Open up a Terminal session (press <kbd>⌘</kbd> + T) and copy and paste the following commands to install Catts on your system:
+__Open up a Terminal session (press <kbd>⌘</kbd> + T) and copy and paste the following commands to install Catts on your system.__
+
+Please use the copy/clipboard button that appears when you hover over a code snippet to ensure that you copy the whole command instead of just a portion of it by mistake.
 
 1. ### __Download Catts__ shared library binary ([libgala-catts.so](https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so)) from [small-tech.org](https://small-tech.org) to the temporary directory on your computer (_/tmp_):
 
