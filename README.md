@@ -8,9 +8,9 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 
 ## Install
 
-_(Want to build it yourself instead? See the [for developers](#for-developers) section.)_
-
-> __Catts is in Beta. If you experience any problems installing or using it, please [open an issue](issues) and let me know.__
+> __Catts is in Beta.__ If you experience any problems installing or using it, please [open an issue](issues) and let me know.
+>
+> _The following instructions download and install the Catts shared library binary. If you want to build it yourself instead, please see the [for developers](#for-developers) section._
 
 Open up a Terminal session (press <kbd>⌘</kbd> + T) and copy and paste the following commands to install Catts on your system:
 
