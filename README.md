@@ -67,8 +67,6 @@ Because:
 
   - There is already a graphically-heavy, slower alternative with the “Show Desktop” (<kbd>⌘</kbd> + <kbd>↓</kbd>) gesture that gives you an overview of the windows within a workspace with window previews that can be used if differentiating windows based on their contents is important.
 
-(Catts is limited to windows at the moment. It does not group windows by app. See [limitations](#limitations), below.)
-
 __In elementary OS, however the task switcher:__
 
   - __Overloads the dock__ (the dock is transformed to include icons of windows and the icons there used to indicate which window you’re switching to). This breaks the physicality of the dock and overloads its meaning. That said, due to the amount of other animation going on, willing myself to concentrate on the dock is the only way I can use it at all.
