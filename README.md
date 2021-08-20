@@ -16,13 +16,13 @@ __Open up a Terminal session (press <kbd>⌘</kbd> + T) and copy and paste the f
 
 Please use the copy/clipboard button that appears when you hover over a code snippet to ensure that you copy the whole command instead of just a portion of it by mistake.
 
-1. ### __Download Catts__ shared library binary ([libgala-catts.so](https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so)) from [small-tech.org](https://small-tech.org) to the temporary directory on your computer (_/tmp_):
+1.  __Download Catts__ shared library binary ([libgala-catts.so](https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so)) from [small-tech.org](https://small-tech.org) to the temporary directory on your computer (_/tmp_):
 
     ```shell
     wget https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so -O /tmp/libgala-catts.so
     ```
 
-2. ### __Verify the downloaded file__ is what you expect:
+2. __Verify the downloaded file__ is what you expect:
 
     ```shell
     bash -lic "test \"\$(sha256sum /tmp/libgala-catts.so)\" = 'c73ce1c713fbf8b7e261c20d70268580fa6f7d1bd5a70a4e1ba5ea50d20206fc  /tmp/libgala-catts.so' && echo 'Download OK.' || echo '🛑 STOP. Security error. File has been tampered with. DO NOT PROCEED.'"
@@ -30,7 +30,7 @@ Please use the copy/clipboard button that appears when you hover over a code sni
 
     __Unless you see `Download OK`, do NOT proceed to Step 3.__ (Instead, [open an issue here](https://github.com/small-tech/catts/issues) and let us know what happened.)
 
-3. ### __Install the downloaded file__ as a [Gala](https://github.com/elementary/gala) plugin:
+3. __Install the downloaded file__ as a [Gala](https://github.com/elementary/gala) plugin:
 
     (Terminal will warn you that you are trying to paste a command that requires administrative privileges. When you press return to execute it, the command will prompt you to allow it administrative privileges by entering your system password.)
 
@@ -38,7 +38,7 @@ Please use the copy/clipboard button that appears when you hover over a code sni
     sudo mv /tmp/libgala-catts.so /usr/lib/x86_64-linux-gnu/gala/plugins/; sudo chown root:root /usr/lib/x86_64-linux-gnu/gala/plugins/libgala-catts.so
     ```
 
-4. ### __Reboot.__
+4. __Reboot.__
 
     If you don’t want to restart your computer, you can also start using Catts right away by issuing the following command:
 
