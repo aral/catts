@@ -4,12 +4,12 @@ __Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for [elementar
 
 For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus).
 
-![Screenshot of Catts in action. The switcher contains four icons: Web, Email, Tasks, and Calculator. Tasks is selected. The switcher is in dark mode. The wall paper behind the switcher is an illustration in blues and purples of a woman standing with her arms stretched out to her sides as if to embrace the cityscape and vast open sky and clouds before her. At her feet, her cat mimics her pose.](./catts-screenshot.jpg)
+![Screenshot of Catts in action. The switcher contains three icons: Tasks, AppCenter, and Calculator. AppCenter is selected. The switcher is in dark mode. The wallpaper behind the switcher is an illustration of cats on a roof. One (pink) looks out into the distance, a tiny blue one is about to paw its tail playfully, and a green one watches the scene.](./catts-screenshot.jpg)
+
+[Want the wallpaper?](#wallpaper)
 
 ## Install
 
-> __Catts is in Beta.__ If you experience any problems installing or using it, please [open an issue](https://github.com/small-tech/catts/issues) and let me know.
->
 > _The following instructions download and install the Catts shared library binary. If you want to build it yourself instead, please see the [for developers](#for-developers) section._
 
 __Open up a Terminal session (press <kbd>⌘</kbd> + <kbd>T</kbd>) and copy and paste the following commands to install Catts on your system.__
@@ -106,6 +106,32 @@ It currently has the following major limitations:
   - [__Cannot exit app with <kbd>Ctrl</kbd> + <kbd>Q</kbd> while selected.__](https://github.com/small-tech/catts/issues/5) It is a productivity boost to be able to use the task switcher to close and app by quickly selecting its icon and, while continuing to hold down <kbd>Alt</kbd>, pressing <kbd>Ctrl</kbd> + <kbd>Q</kbd> to quit the selected app (especially when you want to quit several apps together). This is currently not supported by Catts. The workaround is to switch to the app first and then press <kbd>Ctrl</kbd> + <kbd>Q</kbd>.
 
 If you’d like to help us implement any of these features, [please say hello on Discussions](https://github.com/small-tech/catts/discussions) and tell us which of these limitations you’d like to help overcome.
+
+## Get the wallpaper
+
+The wallpaper you see in the screenshot was commissioned for Catts from the singular [Margo de Weerdt](https://www.margodeweerdt.com/). And you’re welcome to download and use it in all its 4K glory on your own computer if you like.
+
+There are three versions: The one you see in the header has a very shallow depth of field (what the cool kids call “bokeh”) and a pink-purple gradient filter applied for the sake of keeping the focus on the task switcher. There is also one with less bokeh as well as the original illustration by Margo without any of Aral’s meddling.
+
+All three are released under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). Please credit [Margo de Weerdt](https://www.margodeweerdt.com/) and [Catts](https://github.com/small-tech/catts) by [Small Technology Foundation](https://small-tech.org).
+
+### Original
+
+![An illustration of cats on a roof with a cityscape behind them. One (pink) sits by a chimney and looks out into the distance, a tiny blue one is about to paw its tail playfully, and a green one watches the scene. There are a couple of birds by the chimney you are also looking out into the distance. The city is a mix of modern and classical buildings and there are a couple of zeppelins flying in the distance.](wallpapers/catts-wallpaper-4k-by-margo-de-weerdt-small-technology-foundation.jpg)
+
+### Shallower depth of field
+
+![The same illustration as described in the original one, above, but with the background blurred and with a pink to purple gradient applied to the background.](wallpapers/catts-wallpaper-4k-shallow-depth-of-field-by-margo-de-weerdt-and-aral-balkan-small-technology-foundation.jpg)
+
+### Even shallower depth of field (did someone say bokeh?)
+
+![The same illustration as described in the shallower depth of field version, above, but with even shallower depth of field.](wallpapers/catts-wallpaper-4k-even-shallower-depth-of-field-by-margo-de-weerdt-and-aral-balkan-small-technology-foundation.jpg)
+
+## Like this? Fund us!
+
+[Small Technology Foundation](https://small-tech.org) is a tiny, independent not-for-profit.
+
+We exist in part thanks to patronage by people like you. If you share [our vision](https://small-tech.org/about/#small-technology) and want to support our work, please [become a patron or donate to us](https://small-tech.org/fund-us) today and help us continue to exist.
 
 ---
 
