@@ -13,7 +13,7 @@ __This branch is for taking the screenshot of the banner for the README.__
 
 2. Set the resolution to HiDPI (3×) in Settings → Displays and make the 1080 monitor the primary one.
 
-3. Build and install Catts (see instructions, below).
+3. [Build and install](#build) Catts.
 
 4. Restart the computer.
 
