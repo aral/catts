@@ -17,7 +17,7 @@ __This branch is for taking the screenshot of the banner for the README.__
 
 4. Restart the computer.
 
-5. Open the following applications: Web, Tasks, AppCenter, Calculator and make sure they’re displaying in that order. If not, use <kbd>Alt</kbd> + <kbd>Tab</kbd> to make them display in that order. (Make sure the windows are on the second screen, not the primary one and make sure that they’re not displaying flush to the side of the monitor where their shadows might influence the primary display.)
+5. Open the following applications: Tasks, AppCenter, Calculator and make sure they display in that order. If not, use <kbd>Alt</kbd> + <kbd>Tab</kbd> to make them do so. (Make sure the windows are on the second screen, not the primary one and make sure that they’re not displaying flush to the side of the monitor where their shadows might influence the primary display.)
 
 6. Open up a terminal window and kill Cerbere (which automatically restarts core elementary OS services like Wingpanel) and Wingpanel (to remove the top bar for the screenshot):
 

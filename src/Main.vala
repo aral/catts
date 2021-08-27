@@ -277,7 +277,7 @@ namespace Gala.Plugins.Catts
             wrapper.set_position(
                 geom.x + (geom.width - wrapper.width) / 2,
                 // For the screenshot, move the switcher up so it displays prominently on the background.
-                geom.y + (geom.height - wrapper.height) / 4
+                geom.y + (geom.height - wrapper.height) / 4.5f
             );
 
             wm.ui_group.insert_child_above(wrapper, null);
