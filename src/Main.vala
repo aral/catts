@@ -1,3 +1,7 @@
+//  This is a special branch for creating the README screenshot.
+//
+//  It displays the icons larger and positions the switcher differently.
+//
 //  Modified by Aral Balkan [mail@ar.al], 2021
 //  Modified by Mark Story [mark@mark-story.com], 2020
 //  Modified by Popye [sailor3101@gmail.com], 2017
@@ -30,7 +34,7 @@ namespace Gala.Plugins.Catts
 
     // Visual Settings
     //  public const string ACTIVE_ICON_COLOR = "#5e5e6448";
-    public const int ICON_SIZE = 96;
+    public const int ICON_SIZE = 256;
     //  public const string WRAPPER_BACKGROUND_COLOR = "#EAEAEAC8";
     public const int WRAPPER_BORDER_RADIUS = 12;
     public const int WRAPPER_PADDING = 12;
@@ -272,7 +276,8 @@ namespace Gala.Plugins.Catts
             );
             wrapper.set_position(
                 geom.x + (geom.width - wrapper.width) / 2,
-                geom.y + (geom.height - wrapper.height) / 2
+                // For the screenshot, move the switcher up so it displays prominently on the background.
+                geom.y + (geom.height - wrapper.height) / 4
             );
 
             wm.ui_group.insert_child_above(wrapper, null);

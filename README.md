@@ -1,5 +1,37 @@
 # Catts (Calmer Alt-Tab Task Switcher)
 
+## Screenshot branch
+
+__This branch is for taking the screenshot of the banner for the README.__
+
+  - Makes icons larger for screenshot.
+  - Positions the switcher in an aesthetically-pleasing location in the composition.
+
+## Screenshot instructions
+
+1. Display catts-wallpaper-even-shallower-depth-of-field.jpg as your wallpaper on a 1920×1080 screen (on my setup, this is the laptop screen).
+
+2. Set the resolution to HiDPI (3×) in Settings → Displays and make the 1080 monitor the primary one.
+
+3. Build and install Catts (see instructions, below).
+
+4. Restart the computer.
+
+5. Open the following applications: Web, Tasks, AppCenter, Calculator and make sure they’re displaying in that order. If not, use <kbd>Alt</kbd> + <kbd>Tab</kbd> to make them display in that order.
+
+6. Open up a terminal window and kill Cerbere (which automatically restarts core elementary OS services like Wingpanel) and Wingpanel (to remove the top bar for the screenshot):
+
+    ```shell
+    killall io.elementary.cerbere
+    killall io.elementary.wingpanel
+    ```
+
+    (Note that if you use trigger the Application Menu via the keyboard shortcut, Wingpanel will launch and you must perform the second command, above, again to kill it.)
+
+7. Use the Screenshot tool to take a three-second-delayed whole-screen screenshot. Use <kbd>Alt</kbd> + <kbd>Tab</kbd> to ensure that the AppCenter is the app highlighted in the screenshot.
+
+## Rest of the regular readme follows…
+
 __Catts is a calmer <kbd>alt</kbd> + <kbd>tab</kbd> task switcher for [elementary OS 6 (Odin)](https://elementary.io).__
 
 For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus).
