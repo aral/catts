@@ -9,7 +9,7 @@ __This branch is for taking the screenshot of the banner for the README.__
 
 ## Screenshot instructions
 
-1. Display catts-wallpaper-even-shallower-depth-of-field.jpg as your wallpaper on a 1920×1080 screen (on my setup, this is the laptop screen).
+1. Display catts-wallpaper-even-shallower-depth-of-field.jpg as your wallpaper. Have at least two screens, with the one you’re going to take the screenshot on having 1920×1080 screen (on my setup, this is the laptop screen).
 
 2. Set the resolution to HiDPI (3×) in Settings → Displays and make the 1080 monitor the primary one.
 
@@ -17,7 +17,7 @@ __This branch is for taking the screenshot of the banner for the README.__
 
 4. Restart the computer.
 
-5. Open the following applications: Web, Tasks, AppCenter, Calculator and make sure they’re displaying in that order. If not, use <kbd>Alt</kbd> + <kbd>Tab</kbd> to make them display in that order.
+5. Open the following applications: Web, Tasks, AppCenter, Calculator and make sure they’re displaying in that order. If not, use <kbd>Alt</kbd> + <kbd>Tab</kbd> to make them display in that order. (Make sure the windows are on the second screen, not the primary one and make sure that they’re not displaying flush to the side of the monitor where their shadows might influence the primary display.)
 
 6. Open up a terminal window and kill Cerbere (which automatically restarts core elementary OS services like Wingpanel) and Wingpanel (to remove the top bar for the screenshot):
 
