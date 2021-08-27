@@ -19,18 +19,32 @@ __This branch is for taking the screenshot of the banner for the README.__
 
 5. Open the following applications: Tasks, AppCenter, Calculator and make sure they display in that order. If not, use <kbd>Alt</kbd> + <kbd>Tab</kbd> to make them do so. (Make sure the windows are on the second screen, not the primary one and make sure that they’re not displaying flush to the side of the monitor where their shadows might influence the primary display.)
 
-6. Open up a terminal window and kill Cerbere (which automatically restarts core elementary OS services like Wingpanel) and Wingpanel (to remove the top bar for the screenshot):
+6. Launch the Screenshot tool. You’re going to need it later.
+
+7. Open up a terminal window and kill Cerbere (which automatically restarts core elementary OS services like Wingpanel) and Wingpanel (to remove the top bar for the screenshot):
 
     ```shell
     killall io.elementary.cerbere
     killall io.elementary.wingpanel
     ```
 
-    Make sure you exit Terminal once you’re done so its icon does not appear in the task switcher.
+8. Still in Terminal, also turn off the rounded screen corners:
 
-    (Note that if you use trigger the Application Menu via the keyboard shortcut, Wingpanel will launch and you must perform the second command, above, again to kill it.)
+    ```shell
+    gsettings set org.pantheon.desktop.gala.mask-corners enable false
+    ```
 
-7. Use the Screenshot tool to take a three-second-delayed whole-screen screenshot. Use <kbd>Alt</kbd> + <kbd>Tab</kbd> to ensure that the AppCenter is the app highlighted in the screenshot.
+    If you want to re-enable them later, you can use:
+
+    ```shell
+    gsettings reset org.pantheon.desktop.gala.mask-corners enable
+    ```
+
+9.  Exit Terminal so its icon does not appear in the task switcher.
+
+    (Note that if you trigger the Application Menu via its keyboard shortcut, Wingpanel will launch and you must perform the second command, above, again to kill it.)
+
+10. Use the Screenshot tool you launched in Step 6 (you launched it, didn’t you? If not, go back and repeat steps 6-9 again) to take a three-second-delayed whole-screen screenshot. Use <kbd>Alt</kbd> + <kbd>Tab</kbd> to ensure that the AppCenter is the app highlighted in the screenshot.
 
     (Don’t worry, the Screenshot tool’s icon will not appear in the task switcher.)
 
