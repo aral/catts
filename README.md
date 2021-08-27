@@ -26,9 +26,13 @@ __This branch is for taking the screenshot of the banner for the README.__
     killall io.elementary.wingpanel
     ```
 
+    Make sure you exit Terminal once you’re done so its icon does not appear in the task switcher.
+
     (Note that if you use trigger the Application Menu via the keyboard shortcut, Wingpanel will launch and you must perform the second command, above, again to kill it.)
 
 7. Use the Screenshot tool to take a three-second-delayed whole-screen screenshot. Use <kbd>Alt</kbd> + <kbd>Tab</kbd> to ensure that the AppCenter is the app highlighted in the screenshot.
+
+    (Don’t worry, the Screenshot tool’s icon will not appear in the task switcher.)
 
 ## Rest of the regular readme follows…
 
