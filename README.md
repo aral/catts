@@ -11,7 +11,7 @@ __This branch is for taking the screenshot of the banner for the README.__
 
 1. Display catts-wallpaper-even-shallower-depth-of-field.jpg as your wallpaper. Have at least two screens, with the one you’re going to take the screenshot on having 1920×1080 screen (on my setup, this is the laptop screen).
 
-2. Set the resolution to HiDPI (3×) in Settings → Displays and make the 1080 monitor the primary one.
+2. Set the resolution to HiDPI (3×) in Settings → Displays, make the 1080 monitor the primary one, and set Desktop → Appearance → Text Size to small.
 
 3. [Build and install](#build) Catts.
 
