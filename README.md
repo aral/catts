@@ -6,7 +6,7 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 
 ![Screenshot of Catts in action. The switcher contains three icons: Tasks, AppCenter, and Calculator. AppCenter is selected. The switcher is in dark mode. The wallpaper behind the switcher is an illustration of cats on a roof. One (pink) looks out into the distance, a tiny blue one is about to paw its tail playfully, and a green one watches the scene.](./catts-screenshot.jpg)
 
-[Want the wallpaper?](#wallpaper)
+[Want the wallpaper?](#get-the-wallpaper)
 
 ## Install
 
