@@ -102,7 +102,9 @@ __Catts:__
 
   - __Uses the system colour scheme.__ Love Dark Mode? Catts does too.
 
-I feel elementary OS would be far more usable in general – not to mention more familiar for folks just coming over from macOS or Windows – if Catts (or something like it) were to [replace the official task switcher in elementary OS](https://github.com/elementary/gala/discussions/72#discussioncomment-219601).
+I feel elementary OS would be far more usable in general – not to mention more familiar for folks just coming over from macOS or Windows – if we were to [replace the default task switcher with Catts](https://github.com/elementary/gala/issues/1232).
+
+In fact, I’ve opened [a feature request on the elementary OS Gala to do just that](https://github.com/elementary/gala/issues/1232). If you agree, please [give it a thumbs up](https://github.com/elementary/gala/issues/1232) to show your support.
 
 ## Limitations
 
