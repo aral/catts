@@ -61,7 +61,7 @@ Elementary ships with <kbd>Alt</kbd> + <kbd>Shift</kbd> bound to switch keyboard
 
 ## Why Catts?
 
-A quick visual demonstration should suffice (if it doesn’t, please read to read the various reasons.)
+A quick visual demonstration should suffice (if it doesn’t, please read on for the various reasons outlined below.)
 
 ### Elementary OS stock task switcher:
 
