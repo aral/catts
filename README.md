@@ -200,7 +200,7 @@ After you’ve built Catts, you can replace the task switcher in your main sessi
 
 ```shell
 # Restart Gala
-sudo gala --replace &
+gala --replace &
 ```
 
 ## Like this? Fund us!
