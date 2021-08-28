@@ -61,7 +61,18 @@ Elementary ships with <kbd>Alt</kbd> + <kbd>Shift</kbd> bound to switch keyboard
 
 ## Why Catts?
 
-Because:
+A quick visual demonstration should suffice (if it doesn’t, please read to read the various reasons.)
+
+### Elementary OS stock task switcher:
+
+![Screen recording of the default elementary OS task switcher: windows animate in and out while switching between apps and the dock is repurposed as the task switcher view and morphs from the dock icons to the active app icons during the task switching process.](demo/elementary-os-default-task-switcher.gif)
+
+
+### Catts:
+
+![Screen recording of the Catts task switcher for elementary OS. It resembles the task switchers found in other operating systems like macOS, Windows, and many other Linux flavours. The active apps are shown as a row of icons and an indicator shows which app will be active when you release the alt key. The window title of the selected app is also shown. Nothing animates.](demo/elementary-os-catts-task-switcher.gif)
+
+In other words, because:
 
   - <kbd>alt</kbd> + <kbd>tab</kbd> is a hidden, shortcut gesture for quickly switching between the various windows you have open.
 
