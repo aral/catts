@@ -14,27 +14,24 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using Clutter;
-using Meta;
-
 namespace Gala.Plugins.Catts
 {
-    class RoundedActor : Actor
+    class RoundedActor : Clutter.Actor
     {
-        private Canvas canvas;
-        private Color back_color;
+        private Clutter.Canvas canvas;
+        private Clutter.Color back_color;
         private int rect_radius;
 
-        public RoundedActor (Color background_color, int radius)
+        public RoundedActor (Clutter.Color background_color, int radius)
         {
             rect_radius = radius;
             back_color = background_color;
-            canvas = new Canvas ();
+            canvas = new Clutter.Canvas ();
             this.set_content (canvas);
             canvas.draw.connect (this.drawit);
         }
 
-        protected virtual bool drawit ( Cairo.Context ctx)
+        protected virtual bool drawit (Cairo.Context ctx)
         {
             Granite.Drawing.BufferSurface buffer;
             buffer = new Granite.Drawing.BufferSurface ((int)this.width, (int)this.height);
@@ -47,25 +44,24 @@ namespace Gala.Plugins.Catts
             buffer.context.clip ();
             buffer.context.reset_clip ();
 
-            // draw rect
-            cairo_set_source_color (buffer.context, back_color);
+            // Draw rect.
+            Clutter.cairo_set_source_color (buffer.context, back_color);
             Granite.Drawing.Utilities.cairo_rounded_rectangle (buffer.context, 0, 0, (int)this.width, (int)this.height, rect_radius);
             buffer.context.fill ();
 
-            //clear surface to transparent
+            // Clear surface to transparent.
             ctx.set_operator (Cairo.Operator.SOURCE);
             ctx.set_source_rgba (0, 0, 0, 0);
             ctx.paint ();
 
-            //now paint our buffer on
+            // Now paint our buffer on.
             ctx.set_source_surface (buffer.surface, 0, 0);
             ctx.paint ();
 
             return true;
         }
 
-        public void resize (int width, int height)
-        {
+        public void resize (int width, int height) {
             set_size (width, height);
             canvas.set_size (width, height);
             canvas.invalidate ();
