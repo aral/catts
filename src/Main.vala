@@ -66,17 +66,18 @@ namespace Gala.Plugins.Catts
 
             var granite_settings = Granite.Settings.get_default();
 
+            // Carry out the initial draw
+            createComponents(granite_settings);
+
             // Redraw the components if the colour scheme changes.
             granite_settings.notify["prefers-color-scheme"].connect(() => {
                 createComponents(granite_settings);
             });
-
-            // Carry out the initial draw
-            createComponents(granite_settings, true);
         }
 
-        private void createComponents (Granite.Settings granite_settings, bool initial = false) {
-            if (initial) {
+        private void createComponents (Granite.Settings granite_settings) {
+            // We’ve already been constructed once, start again.
+            if (wrapper != null) {
                 destroy();
             }
 
@@ -132,10 +133,6 @@ namespace Gala.Plugins.Catts
             container.destroy();
             indicator.destroy();
             caption.destroy();
-
-            if (wm == null) {
-                return;
-            }
         }
 
         [CCode (instance_pos = -1)]
