@@ -20,7 +20,6 @@
 //
 
 using Clutter;
-using Meta;
 
 namespace Gala.Plugins.Catts
 {
@@ -62,10 +61,10 @@ namespace Gala.Plugins.Catts
         {
             this.wm = wm;
 
-            KeyBinding.set_custom_handler("switch-applications", (Meta.KeyHandlerFunc) handle_switch_windows);
-            KeyBinding.set_custom_handler("switch-applications-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
-            KeyBinding.set_custom_handler("switch-windows", (Meta.KeyHandlerFunc) handle_switch_windows);
-            KeyBinding.set_custom_handler("switch-windows-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
+            Meta.KeyBinding.set_custom_handler("switch-applications", (Meta.KeyHandlerFunc) handle_switch_windows);
+            Meta.KeyBinding.set_custom_handler("switch-applications-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
+            Meta.KeyBinding.set_custom_handler("switch-windows", (Meta.KeyHandlerFunc) handle_switch_windows);
+            Meta.KeyBinding.set_custom_handler("switch-windows-backward", (Meta.KeyHandlerFunc) handle_switch_windows);
 
             var granite_settings = Granite.Settings.get_default();
 
@@ -143,8 +142,8 @@ namespace Gala.Plugins.Catts
 
         [CCode (instance_pos = -1)]
         public void handle_switch_windows(
-            Display display, Window? window,
-            Clutter.KeyEvent event, KeyBinding binding)
+            Meta.Display display, Meta.Window? window,
+            Clutter.KeyEvent event, Meta.KeyBinding binding)
         {
             var workspace = display.get_workspace_manager().get_active_workspace();
 
@@ -175,15 +174,15 @@ namespace Gala.Plugins.Catts
             next_window(display, workspace, backward);
         }
 
-        bool collect_windows(Display display, Workspace? workspace)
+        bool collect_windows(Meta.Display display, Meta.Workspace? workspace)
         {
-            var windows = display.get_tab_list(TabList.NORMAL, workspace);
+            var windows = display.get_tab_list(Meta.TabList.NORMAL, workspace);
 
             if (windows == null) {
                 return false;
             }
 
-            var current_window = display.get_tab_current(TabList.NORMAL, workspace);
+            var current_window = display.get_tab_current(Meta.TabList.NORMAL, workspace);
 
             container.width = -1;
             container.destroy_all_children();
@@ -323,7 +322,7 @@ namespace Gala.Plugins.Catts
             wrapper.restore_easing_state();
         }
 
-        void next_window(Display display, Workspace? workspace, bool backward)
+        void next_window(Meta.Display display, Meta.Workspace? workspace, bool backward)
         {
             Clutter.Actor actor;
             var current = cur_icon;
@@ -467,7 +466,7 @@ namespace Gala.Plugins.Catts
             return modifiers;
         }
 
-        bool keybinding_filter (KeyBinding binding)
+        bool keybinding_filter (Meta.KeyBinding binding)
         {
             // if it's not built-in, we can block it right away
             if (!binding.is_builtin()) {
