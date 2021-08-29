@@ -8,6 +8,15 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 
 [Want the wallpaper?](#get-the-wallpaper)
 
+## Version details
+
+  - __Current:__ 1.0.1 (2021-08-28) Pressing escape now properly cancels the task switch. (Fix by [David M. Hewitt.)
+  - 1.0.0 (2021-08-28) Initial release.
+
+For full notes, please [see the change log](./CHANGELOG.md).
+
+_To upgrade, please follow the installation instructions, below, to reinstall the latest binary._
+
 ## Install
 
 > _The following instructions download and install the Catts shared library binary. If you want to build it yourself instead, please see the [for developers](#for-developers) section._
@@ -19,13 +28,13 @@ Please use the copy/clipboard button that appears when you hover over a code sni
 1.  __Download Catts__ shared library binary ([libgala-catts.so](https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so)) from [small-tech.org](https://small-tech.org) to the temporary directory on your computer (_/tmp_):
 
     ```shell
-    wget https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so -O /tmp/libgala-catts.so
+    wget https://small-tech.org/downloads/catts/1.0.1/libgala-catts.so -O /tmp/libgala-catts.so
     ```
 
 2. __Verify the downloaded file__ is what you expect:
 
     ```shell
-    bash -lic "test \"\$(sha256sum /tmp/libgala-catts.so)\" = 'c73ce1c713fbf8b7e261c20d70268580fa6f7d1bd5a70a4e1ba5ea50d20206fc  /tmp/libgala-catts.so' && echo 'Download OK.' || echo '🛑 STOP. Security error. File has been tampered with. DO NOT PROCEED.'"
+    bash -lic "test \"\$(sha256sum /tmp/libgala-catts.so)\" = '7ab574482f93d2b4881788631893a540bae2f64838d82cfcbadb9d8c74c11922  /tmp/libgala-catts.so' && echo 'Download OK.' || echo '🛑 STOP. Security error. File has been tampered with. DO NOT PROCEED.'"
     ```
 
     __Unless you see `Download OK`, do NOT proceed to Step 3.__ (Instead, [open an issue here](https://github.com/small-tech/catts/issues) and let us know what happened.)
