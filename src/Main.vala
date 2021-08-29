@@ -23,7 +23,7 @@ namespace Gala.Plugins.Catts
 {
     public delegate void ObjectCallback(Object object);
 
-    public const string VERSION = "1.0";
+    public const string VERSION = "1.0.1";
 
     // Visual Settings
     public const int ICON_SIZE = 96;
