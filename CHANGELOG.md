@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - Initial release; in progress…
+## [1.0.1] - 2021-08-29
 
-This is the initial release since Catts was forked from [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus).
+### Fixed
+
+  - Pressing escape now cancels the task switch action and system focus stays on the current window without switching to the window whose icon was selected in Catts (as was erroneously the case before). Thanks to [David M. Hewitt](https://github.com/davidmhewitt) for fixing this as part of [his pull request to bring Catts in-tree to Gala](https://github.com/elementary/gala/pull/1234).
+
+## [1.0.0] - 2021-08-28
+
+Initial release since Catts was forked from [Gala Alt Tab Plus](https://github.com/markstory/gala-alt-tab-plus).
 
 ### Changed
 
