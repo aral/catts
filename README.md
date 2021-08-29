@@ -10,7 +10,7 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 
 ## Version details
 
-  - __1.0.1 (2021-08-29)__ Pressing escape now properly cancels the task switch without changing the focussed window. ([Fix](https://github.com/elementary/gala/pull/1234/commits/acc986598d456857df1f5f8db4d57c1d0ef1176c) by [David M. Hewitt](https://github.com/elementary/gala/pull/1234/).)
+  - __1.0.1 (2021-08-29)__ Pressing escape now properly cancels the task switch without changing the focussed window. ([Fix](https://github.com/elementary/gala/pull/1234/commits/acc986598d456857df1f5f8db4d57c1d0ef1176c) by [David M. Hewitt](https://github.com/davidmhewitt).)
 
   - __1.0.0 (2021-08-28)__ Initial release.
 
