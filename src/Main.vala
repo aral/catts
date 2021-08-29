@@ -19,8 +19,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using Clutter;
-
 namespace Gala.Plugins.Catts
 {
     public delegate void ObjectCallback(Object object);
@@ -44,9 +42,9 @@ namespace Gala.Plugins.Catts
         Gala.ModalProxy modal_proxy = null;
 
         Clutter.Actor container;
+        Clutter.Text caption;
         RoundedActor wrapper;
         RoundedActor indicator;
-        Text caption;
 
         int modifier_mask;
 
@@ -99,26 +97,26 @@ namespace Gala.Plugins.Catts
                 caption_color = "#ffffff";
             }
 
-            wrapper = new RoundedActor(Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS);
+            wrapper = new RoundedActor(Clutter.Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS);
             wrapper.reactive = true;
             wrapper.set_pivot_point(0.5f, 0.5f);
             wrapper.key_release_event.connect(key_release_event);
             wrapper.key_focus_out.connect(key_focus_out);
 
-            var layout = new FlowLayout(FlowOrientation.HORIZONTAL);
-            container = new Actor();
+            var layout = new Clutter.FlowLayout(Clutter.FlowOrientation.HORIZONTAL);
+            container = new Clutter.Actor();
             container.layout_manager = layout;
             container.reactive = true;
             container.button_press_event.connect(container_mouse_press);
             container.motion_event.connect(container_motion_event);
 
-            indicator = new RoundedActor(Color.from_string(active_icon_color), WRAPPER_BORDER_RADIUS);
+            indicator = new RoundedActor(Clutter.Color.from_string(active_icon_color), WRAPPER_BORDER_RADIUS);
 
             indicator.margin_left = indicator.margin_top =
                 indicator.margin_right = indicator.margin_bottom = 0;
             indicator.set_pivot_point(0.5f, 0.5f);
 
-            caption = new Text.full(CAPTION_FONT_NAME, "", Color.from_string(caption_color));
+            caption = new Clutter.Text.full(CAPTION_FONT_NAME, "", Clutter.Color.from_string(caption_color));
             caption.set_pivot_point(0.5f, 0.5f);
             caption.set_ellipsize(Pango.EllipsizeMode.END);
             caption.set_line_alignment(Pango.Alignment.CENTER);
@@ -215,7 +213,7 @@ namespace Gala.Plugins.Catts
             container.margin_left = container.margin_top =
                 container.margin_right = container.margin_bottom = (WRAPPER_PADDING * 3);
 
-            var l = container.layout_manager as FlowLayout;
+            var l = container.layout_manager as Clutter.FlowLayout;
             l.column_spacing = l.row_spacing = WRAPPER_PADDING;
 
             indicator.visible = false;
@@ -409,9 +407,9 @@ namespace Gala.Plugins.Catts
             }
         }
 
-        bool container_motion_event (MotionEvent event)
+        bool container_motion_event (Clutter.MotionEvent event)
         {
-            var actor = event.stage.get_actor_at_pos(PickMode.ALL, (int) event.x, (int) event.y);
+            var actor = event.stage.get_actor_at_pos(Clutter.PickMode.ALL, (int) event.x, (int) event.y);
             if (actor == null) {
                 return true;
             }
@@ -429,7 +427,7 @@ namespace Gala.Plugins.Catts
             return true;
         }
 
-        bool container_mouse_press (ButtonEvent event)
+        bool container_mouse_press (Clutter.ButtonEvent event)
         {
             if (opened && event.button == Gdk.BUTTON_PRIMARY) {
                 close_switcher(event.time);
@@ -438,7 +436,7 @@ namespace Gala.Plugins.Catts
             return true;
         }
 
-        bool key_release_event (KeyEvent event)
+        bool key_release_event (Clutter.KeyEvent event)
         {
             if ((get_current_modifiers() & modifier_mask) == 0) {
                 close_switcher(event.time);
@@ -446,7 +444,7 @@ namespace Gala.Plugins.Catts
             }
 
             switch (event.keyval) {
-                case Key.Escape:
+                case Clutter.Key.Escape:
                     close_switcher(event.time);
                     return true;
             }
