@@ -141,13 +141,10 @@ namespace Gala.Plugins.Catts
             }
         }
 
-        [CCode (instance_pos = -1)] void handle_switch_windows(
+        [CCode (instance_pos = -1)]
+        public void handle_switch_windows(
             Display display, Window? window,
-        #if HAS_MUTTER314
             Clutter.KeyEvent event, KeyBinding binding)
-        #else
-            X.Event event, KeyBinding binding)
-        #endif
         {
             var workspace = display.get_workspace_manager().get_active_workspace();
 
