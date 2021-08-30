@@ -26,9 +26,9 @@ namespace Gala.Plugins.Catts
     public const string VERSION = "1.0.1";
 
     // Visual Settings
-    public const int ICON_SIZE = 96;
-    public const int WRAPPER_BORDER_RADIUS = 12;
-    public const int WRAPPER_PADDING = 12;
+    public const int ICON_SIZE = 64;
+    public const int WRAPPER_BORDER_RADIUS = 8;
+    public const int WRAPPER_PADDING = 8;
     public const string CAPTION_FONT_NAME = "Inter";
 
     public class Main : Gala.Plugin
@@ -222,7 +222,7 @@ namespace Gala.Plugins.Catts
             indicator.set_easing_duration(200);
 
             container.margin_left = container.margin_top =
-                container.margin_right = container.margin_bottom = (WRAPPER_PADDING * 3 * scaling_factor);
+                container.margin_right = container.margin_bottom = (WRAPPER_PADDING * 2 * scaling_factor);
 
             var l = container.layout_manager as Clutter.FlowLayout;
             l.column_spacing = l.row_spacing = WRAPPER_PADDING * scaling_factor;
@@ -267,7 +267,7 @@ namespace Gala.Plugins.Catts
             wrapper.opacity = 0;
             wrapper.resize(
                 (int) nat_width,
-                (int) (nat_height + (caption_height - (container.margin_bottom - caption_height)) / 2)
+                (int) (nat_height + caption_height / 2 - container.margin_bottom + WRAPPER_PADDING * 3 * scaling_factor)
             );
             wrapper.set_position(
                 geom.x + (geom.width - wrapper.width) / 2,
@@ -365,7 +365,7 @@ namespace Gala.Plugins.Catts
 
             // Make caption smaller than the wrapper, so it doesn't overflow.
             caption.width = wrapper.width - (WRAPPER_PADDING * 2 * scaling_factor);
-            caption.set_position(WRAPPER_PADDING * scaling_factor, wrapper.height - (caption_height /2) - WRAPPER_PADDING * 2 * scaling_factor);
+            caption.set_position(WRAPPER_PADDING * scaling_factor, wrapper.height - caption_height / 2 - (WRAPPER_PADDING * scaling_factor * 2));
         }
 
         void update_indicator_position(bool initial = false)
