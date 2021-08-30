@@ -22,19 +22,13 @@
 namespace Gala.Plugins.Catts
 {
     public delegate void ObjectCallback(Object object);
-
     public const string VERSION = "1.0.1";
-
-    // Visual Settings
-    public const int ICON_SIZE = 64;
-    public const int WRAPPER_BORDER_RADIUS = 8;
-    public const int WRAPPER_PADDING = 8;
-    public const string CAPTION_FONT_NAME = "Inter";
 
     public class Main : Gala.Plugin
     {
         const int MIN_OFFSET = 64;
         const int FIX_TIMEOUT_INTERVAL = 100;
+        const string CAPTION_FONT_NAME = "Inter";
 
         public bool opened { get; private set; default = false; }
 
@@ -51,6 +45,9 @@ namespace Gala.Plugins.Catts
         WindowIcon? cur_icon = null;
 
         private int scaling_factor = 1;
+        private int icon_size = 64;
+        private int wrapper_border_radius = 8;
+        private int wrapper_padding = 8;
 
         // For some reason, on Odin, the height of the caption loses
         // its padding after the first time the switcher displays. As a
@@ -68,7 +65,6 @@ namespace Gala.Plugins.Catts
 
             var granite_settings = Granite.Settings.get_default();
 
-            // TODO: Can we use InternalUtils in a plugin? (Asked David.)
             scaling_factor = Utils.get_ui_scaling_factor ();
 
             // Carry out the initial draw
@@ -95,6 +91,10 @@ namespace Gala.Plugins.Catts
                 destroy();
             }
 
+            // Calculate icon size and other metrics from the scaling factor.
+            icon_size = scaling_factor == 1 ? 96 : 64;
+            wrapper_border_radius = wrapper_padding = icon_size / 8;
+
             // Set the colours based on the person’s light/dark scheme preference.
             var wrapper_background_color = "red";
             var active_icon_color = "blue";
@@ -112,7 +112,7 @@ namespace Gala.Plugins.Catts
                 caption_color = "#ffffff";
             }
 
-            wrapper = new RoundedActor(Clutter.Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS * scaling_factor);
+            wrapper = new RoundedActor(Clutter.Color.from_string(wrapper_background_color), wrapper_border_radius * scaling_factor);
             wrapper.reactive = true;
             wrapper.set_pivot_point(0.5f, 0.5f);
             wrapper.key_release_event.connect(key_release_event);
@@ -125,7 +125,7 @@ namespace Gala.Plugins.Catts
             container.button_press_event.connect(container_mouse_press);
             container.motion_event.connect(container_motion_event);
 
-            indicator = new RoundedActor(Clutter.Color.from_string(active_icon_color), WRAPPER_BORDER_RADIUS * scaling_factor);
+            indicator = new RoundedActor(Clutter.Color.from_string(active_icon_color), wrapper_border_radius * scaling_factor);
 
             indicator.margin_left = indicator.margin_top =
                 indicator.margin_right = indicator.margin_bottom = 0;
@@ -197,7 +197,7 @@ namespace Gala.Plugins.Catts
             container.destroy_all_children();
 
             foreach (var window in windows) {
-                var icon = new WindowIcon(window, ICON_SIZE * scaling_factor);
+                var icon = new WindowIcon(window, icon_size * scaling_factor);
                 if (window == current_window) {
                     cur_icon = icon;
                 }
@@ -222,25 +222,25 @@ namespace Gala.Plugins.Catts
             indicator.set_easing_duration(200);
 
             container.margin_left = container.margin_top =
-                container.margin_right = container.margin_bottom = (WRAPPER_PADDING * 2 * scaling_factor);
+                container.margin_right = container.margin_bottom = (wrapper_padding * 2 * scaling_factor);
 
             var l = container.layout_manager as Clutter.FlowLayout;
-            l.column_spacing = l.row_spacing = WRAPPER_PADDING * scaling_factor;
+            l.column_spacing = l.row_spacing = wrapper_padding * scaling_factor;
 
             indicator.visible = false;
             indicator.resize(
-                (ICON_SIZE + WRAPPER_PADDING * 2) * scaling_factor,
-                (ICON_SIZE + WRAPPER_PADDING * 2) * scaling_factor
+                (icon_size + wrapper_padding * 2) * scaling_factor,
+                (icon_size + wrapper_padding * 2) * scaling_factor
             );
             caption.visible = false;
-            caption.margin_bottom = caption.margin_top = WRAPPER_PADDING * scaling_factor;
+            caption.margin_bottom = caption.margin_top = wrapper_padding * scaling_factor;
 
             var monitor = display.get_primary_monitor();
             var geom = display.get_monitor_geometry(monitor);
 
             float container_width;
             container.get_preferred_width(
-                ICON_SIZE * scaling_factor + container.margin_left + container.margin_right,
+                icon_size * scaling_factor + container.margin_left + container.margin_right,
                 null,
                 out container_width
             );
@@ -252,7 +252,7 @@ namespace Gala.Plugins.Catts
             container.get_preferred_size(null, null, out nat_width, null);
 
             if (container.get_n_children() == 1) {
-                nat_width -= WRAPPER_PADDING * scaling_factor;
+                nat_width -= wrapper_padding * scaling_factor;
             }
             container.get_preferred_size(null, null, null, out nat_height);
 
@@ -267,7 +267,7 @@ namespace Gala.Plugins.Catts
             wrapper.opacity = 0;
             wrapper.resize(
                 (int) nat_width,
-                (int) (nat_height + caption_height / 2 - container.margin_bottom + WRAPPER_PADDING * 3 * scaling_factor)
+                (int) (nat_height + caption_height / 2 - container.margin_bottom + wrapper_padding * 3 * scaling_factor)
             );
             wrapper.set_position(
                 geom.x + (geom.width - wrapper.width) / 2,
@@ -364,8 +364,8 @@ namespace Gala.Plugins.Catts
             caption.visible = true;
 
             // Make caption smaller than the wrapper, so it doesn't overflow.
-            caption.width = wrapper.width - (WRAPPER_PADDING * 2 * scaling_factor);
-            caption.set_position(WRAPPER_PADDING * scaling_factor, wrapper.height - caption_height / 2 - (WRAPPER_PADDING * scaling_factor * 2));
+            caption.width = wrapper.width - (wrapper_padding * 2 * scaling_factor);
+            caption.set_position(wrapper_padding * scaling_factor, wrapper.height - caption_height / 2 - (wrapper_padding * scaling_factor * 2));
         }
 
         void update_indicator_position(bool initial = false)
@@ -393,8 +393,8 @@ namespace Gala.Plugins.Catts
             // Move the indicator without animating it.
             indicator.save_easing_state();
             indicator.set_easing_duration(0);
-            indicator.x = container.margin_left + (container.get_n_children() > 1 ? x : 0) - (WRAPPER_PADDING * scaling_factor);
-            indicator.y = container.margin_top + y - (WRAPPER_PADDING * scaling_factor);
+            indicator.x = container.margin_left + (container.get_n_children() > 1 ? x : 0) - (wrapper_padding * scaling_factor);
+            indicator.y = container.margin_top + y - (wrapper_padding * scaling_factor);
             indicator.restore_easing_state();
             update_caption_text();
         }
