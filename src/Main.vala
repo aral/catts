@@ -219,9 +219,9 @@ namespace Gala.Plugins.Catts
             }
 
             // Accessibility: reads as “window, task switcher, N items, panel.”
-            unowned var accessible_object = wrapper.get_accessible();
             var number_of_children = container.get_n_children();
-            accessible_object.set_name(@"Task switcher: $number_of_children items");
+            unowned var accessibility_object = wrapper.get_accessible();
+            accessibility_object.set_name(@"Task switcher: $number_of_children items");
 
             var display = wm.get_display();
             indicator.set_easing_duration(200);
@@ -363,6 +363,7 @@ namespace Gala.Plugins.Catts
             var current_window = cur_icon.window;
             var current_caption = "n/a";
             if (current_window != null) {
+                // Accessibility: reads the title of the selected item.
                 current_caption = current_window.get_title();
                 unowned var accessibility_object = wrapper.get_accessible();
                 accessibility_object.set_name(@"Item $current_caption selected in");
