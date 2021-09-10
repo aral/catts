@@ -364,8 +364,8 @@ namespace Gala.Plugins.Catts
             var current_caption = "n/a";
             if (current_window != null) {
                 current_caption = current_window.get_title();
-                unowned var accessibility_object = container.get_accessible();
-                accessibility_object.set_name(current_caption);
+                unowned var accessibility_object = wrapper.get_accessible();
+                accessibility_object.set_name(@"Item $current_caption selected in");
             }
             caption.set_text(current_caption);
             caption.visible = true;
