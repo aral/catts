@@ -118,6 +118,10 @@ namespace Gala.Plugins.Catts
             wrapper.key_release_event.connect(key_release_event);
             wrapper.key_focus_out.connect(key_focus_out);
 
+            // Accessibility: reads as “window, task switcher panel.”
+            unowned var accessible_object = wrapper.get_accessible();
+            accessible_object.set_name("Task switcher");
+
             var layout = new Clutter.FlowLayout(Clutter.FlowOrientation.HORIZONTAL);
             container = new Clutter.Actor();
             container.layout_manager = layout;
@@ -359,6 +363,8 @@ namespace Gala.Plugins.Catts
             var current_caption = "n/a";
             if (current_window != null) {
                 current_caption = current_window.get_title();
+                unowned var accessibility_object = container.get_accessible();
+                accessibility_object.set_name(current_caption);
             }
             caption.set_text(current_caption);
             caption.visible = true;
