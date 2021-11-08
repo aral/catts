@@ -22,19 +22,13 @@
 namespace Gala.Plugins.Catts
 {
     public delegate void ObjectCallback(Object object);
-
     public const string VERSION = "1.0.1";
-
-    // Visual Settings
-    public const int ICON_SIZE = 96;
-    public const int WRAPPER_BORDER_RADIUS = 12;
-    public const int WRAPPER_PADDING = 12;
-    public const string CAPTION_FONT_NAME = "Inter";
 
     public class Main : Gala.Plugin
     {
         const int MIN_OFFSET = 64;
         const int FIX_TIMEOUT_INTERVAL = 100;
+        const string CAPTION_FONT_NAME = "Inter";
 
         public bool opened { get; private set; default = false; }
 
@@ -50,10 +44,15 @@ namespace Gala.Plugins.Catts
 
         WindowIcon? cur_icon = null;
 
+        private int scaling_factor = 1;
+        private int icon_size = 64;
+        private int wrapper_border_radius = 8;
+        private int wrapper_padding = 8;
+
         // For some reason, on Odin, the height of the caption loses
         // its padding after the first time the switcher displays. As a
         // workaround, I store the initial value here once we have it.
-        float captionHeight = -1.0f;
+        float caption_height = -1.0f;
 
         public override void initialize(Gala.WindowManager wm)
         {
@@ -66,20 +65,35 @@ namespace Gala.Plugins.Catts
 
             var granite_settings = Granite.Settings.get_default();
 
+            scaling_factor = Utils.get_ui_scaling_factor ();
+
             // Carry out the initial draw
-            createComponents(granite_settings);
+            create_components (granite_settings);
 
             // Redraw the components if the colour scheme changes.
             granite_settings.notify["prefers-color-scheme"].connect(() => {
-                createComponents(granite_settings);
+                create_components (granite_settings);
+            });
+
+            // Update scaling factor whenever monitor configuration changes.
+            Meta.MonitorManager.@get ().monitors_changed.connect (() => {
+                var cur_scale = Utils.get_ui_scaling_factor ();
+                if (cur_scale != scaling_factor) {
+                    scaling_factor = cur_scale;
+                    create_components (granite_settings);
+                }
             });
         }
 
-        private void createComponents (Granite.Settings granite_settings) {
+        private void create_components (Granite.Settings granite_settings) {
             // We’ve already been constructed once, start again.
             if (wrapper != null) {
                 destroy();
             }
+
+            // Calculate icon size and other metrics from the scaling factor.
+            icon_size = scaling_factor == 1 ? 96 : 64;
+            wrapper_border_radius = wrapper_padding = icon_size / 8;
 
             // Set the colours based on the person’s light/dark scheme preference.
             var wrapper_background_color = "red";
@@ -98,7 +112,7 @@ namespace Gala.Plugins.Catts
                 caption_color = "#ffffff";
             }
 
-            wrapper = new RoundedActor(Clutter.Color.from_string(wrapper_background_color), WRAPPER_BORDER_RADIUS);
+            wrapper = new RoundedActor(Clutter.Color.from_string(wrapper_background_color), wrapper_border_radius * scaling_factor);
             wrapper.reactive = true;
             wrapper.set_pivot_point(0.5f, 0.5f);
             wrapper.key_release_event.connect(key_release_event);
@@ -111,7 +125,7 @@ namespace Gala.Plugins.Catts
             container.button_press_event.connect(container_mouse_press);
             container.motion_event.connect(container_motion_event);
 
-            indicator = new RoundedActor(Clutter.Color.from_string(active_icon_color), WRAPPER_BORDER_RADIUS);
+            indicator = new RoundedActor(Clutter.Color.from_string(active_icon_color), wrapper_border_radius * scaling_factor);
 
             indicator.margin_left = indicator.margin_top =
                 indicator.margin_right = indicator.margin_bottom = 0;
@@ -183,7 +197,7 @@ namespace Gala.Plugins.Catts
             container.destroy_all_children();
 
             foreach (var window in windows) {
-                var icon = new WindowIcon(window, ICON_SIZE);
+                var icon = new WindowIcon(window, icon_size * scaling_factor);
                 if (window == current_window) {
                     cur_icon = icon;
                 }
@@ -204,41 +218,46 @@ namespace Gala.Plugins.Catts
                 return;
             }
 
+            // Accessibility: reads as “window, task switcher, N items, panel.”
+            var number_of_children = container.get_n_children();
+            unowned var accessibility_object = wrapper.get_accessible();
+            accessibility_object.set_name(@"Task switcher: $number_of_children items");
+
             var display = wm.get_display();
             indicator.set_easing_duration(200);
 
             container.margin_left = container.margin_top =
-                container.margin_right = container.margin_bottom = (WRAPPER_PADDING * 3);
+                container.margin_right = container.margin_bottom = (wrapper_padding * 2 * scaling_factor);
 
             var l = container.layout_manager as Clutter.FlowLayout;
-            l.column_spacing = l.row_spacing = WRAPPER_PADDING;
+            l.column_spacing = l.row_spacing = wrapper_padding * scaling_factor;
 
             indicator.visible = false;
             indicator.resize(
-                ICON_SIZE + WRAPPER_PADDING * 2,
-                ICON_SIZE + WRAPPER_PADDING * 2
+                (icon_size + wrapper_padding * 2) * scaling_factor,
+                (icon_size + wrapper_padding * 2) * scaling_factor
             );
             caption.visible = false;
-            caption.margin_bottom = caption.margin_top = WRAPPER_PADDING;
+            caption.margin_bottom = caption.margin_top = wrapper_padding * scaling_factor;
 
             var monitor = display.get_primary_monitor();
             var geom = display.get_monitor_geometry(monitor);
 
             float container_width;
             container.get_preferred_width(
-                ICON_SIZE + container.margin_left + container.margin_right,
+                icon_size * scaling_factor + container.margin_left + container.margin_right,
                 null,
                 out container_width
             );
-            if (container_width + MIN_OFFSET * 2 > geom.width) {
-                container.width = geom.width - MIN_OFFSET * 2;
+            if (container_width + MIN_OFFSET * scaling_factor * 2 > geom.width) {
+                container.width = geom.width - MIN_OFFSET * scaling_factor * 2;
             }
 
             float nat_width, nat_height;
             container.get_preferred_size(null, null, out nat_width, null);
 
             if (container.get_n_children() == 1) {
-                nat_width -= WRAPPER_PADDING;
+                nat_width -= wrapper_padding * scaling_factor;
             }
             container.get_preferred_size(null, null, null, out nat_height);
 
@@ -246,14 +265,14 @@ namespace Gala.Plugins.Catts
             // its padding after the first time the switcher displays. As a
             // workaround, I store the initial value here once we have it
             // and use that correct value on subsequent attempts.
-            if (captionHeight == -1.0f) {
-                captionHeight = caption.height;
+            if (caption_height == -1.0f) {
+                caption_height = caption.height;
             }
 
             wrapper.opacity = 0;
             wrapper.resize(
                 (int) nat_width,
-                (int) (nat_height + (captionHeight - (container.margin_bottom - captionHeight)) / 2)
+                (int) (nat_height + caption_height / 2 - container.margin_bottom + wrapper_padding * 3 * scaling_factor)
             );
             wrapper.set_position(
                 geom.x + (geom.width - wrapper.width) / 2,
@@ -340,37 +359,28 @@ namespace Gala.Plugins.Catts
             update_indicator_position();
         }
 
-        void update_caption_text(bool initial = false) {
-            // FIXME: width contains incorrect value, if we have one children in container
-            if (container.get_n_children () == 1 && container.width > ICON_SIZE + WRAPPER_PADDING) {
-                GLib.Timeout.add(FIX_TIMEOUT_INTERVAL, () => {
-                    update_caption_text(initial);
-                    return false;
-                }, GLib.Priority.DEFAULT);
-                return;
-            }
-
+        void update_caption_text() {
             var current_window = cur_icon.window;
             var current_caption = "n/a";
             if (current_window != null) {
+                // Accessibility: reads the title of the selected item.
                 current_caption = current_window.get_title();
+                unowned var accessibility_object = wrapper.get_accessible();
+                accessibility_object.set_name(@"Item $current_caption selected in");
             }
             caption.set_text(current_caption);
-
-            if (initial) {
-                caption.visible = true;
-            }
+            caption.visible = true;
 
             // Make caption smaller than the wrapper, so it doesn't overflow.
-            caption.width = wrapper.width - WRAPPER_PADDING * 2;
-            caption.set_position(WRAPPER_PADDING, container.y + container.height + WRAPPER_PADDING);
+            caption.width = wrapper.width - (wrapper_padding * 2 * scaling_factor);
+            caption.set_position(wrapper_padding * scaling_factor, wrapper.height - caption_height / 2 - (wrapper_padding * scaling_factor * 2));
         }
 
         void update_indicator_position(bool initial = false)
         {
-            // FIXME there are some troubles with layouting, in some cases we
+            // FIXME there is some trouble with layout: in some cases we
             //       are here too early, in which case all the children are at
-            //       (0|0), so we can easily check for that and come back later
+            //       (0|0), so, here, we check for that and come back later.
             if (container.get_n_children() > 1
                 && container.get_child_at_index(1).allocation.x1 < 1) {
 
@@ -391,10 +401,10 @@ namespace Gala.Plugins.Catts
             // Move the indicator without animating it.
             indicator.save_easing_state();
             indicator.set_easing_duration(0);
-            indicator.x = container.margin_left + (container.get_n_children() > 1 ? x : 0) - WRAPPER_PADDING;
-            indicator.y = container.margin_top + y - WRAPPER_PADDING;
+            indicator.x = container.margin_left + (container.get_n_children() > 1 ? x : 0) - (wrapper_padding * scaling_factor);
+            indicator.y = container.margin_top + y - (wrapper_padding * scaling_factor);
             indicator.restore_easing_state();
-            update_caption_text(initial);
+            update_caption_text();
         }
 
         void key_focus_out()
