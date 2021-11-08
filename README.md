@@ -10,6 +10,16 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 
 ## Version details
 
+  - __1.0.2 (2021-11-08)__ Adds basic accessibility.
+
+    Announces: “window, task switcher, N items, panel” when launched and the title of the window when an item is selected.
+
+    Given there is next to no usable information about accessibility in the GNOME/Gtk/Vala/elementary OS documentation, I had to cobble together whatever pieces I could find to get this together. It is not ideal but it is way better than having the task switcher be entirely inaccessible, which has been the case with the previous one for the first six releases of elementary OS.
+
+    I hope that this will spur others with greater experience in the platform to improve this essential feature going forward.
+
+    > If you care about accessibility and inclusivity and you want to see it reflected as a core tenet of elementary OS, please make your voice heard in this discussion thread: https://github.com/elementary/hig/discussions/51
+
   - __1.0.1 (2021-08-29)__ Pressing escape now properly cancels the task switch without changing the focussed window. ([Fix](https://github.com/elementary/gala/pull/1234/commits/acc986598d456857df1f5f8db4d57c1d0ef1176c) by [David M. Hewitt](https://github.com/davidmhewitt).)
 
   - __1.0.0 (2021-08-28)__ Initial release.
@@ -26,16 +36,16 @@ __Open up a Terminal session (press <kbd>⌘</kbd> + <kbd>T</kbd>) and copy and 
 
 Please use the copy/clipboard button that appears when you hover over a code snippet to ensure that you copy the whole command instead of just a portion of it by mistake.
 
-1.  __Download Catts__ shared library binary ([libgala-catts.so](https://small-tech.org/downloads/catts/1.0.0/libgala-catts.so)) from [small-tech.org](https://small-tech.org) to the temporary directory on your computer (_/tmp_):
+1.  __Download Catts__ shared library binary ([libgala-catts.so](https://small-tech.org/downloads/catts/1.0.2/libgala-catts.so)) from [small-tech.org](https://small-tech.org) to the temporary directory on your computer (_/tmp_):
 
     ```shell
-    wget https://small-tech.org/downloads/catts/1.0.1/libgala-catts.so -O /tmp/libgala-catts.so
+    wget https://small-tech.org/downloads/catts/1.0.2/libgala-catts.so -O /tmp/libgala-catts.so
     ```
 
 2. __Verify the downloaded file__ is what you expect:
 
     ```shell
-    bash -lic "test \"\$(sha256sum /tmp/libgala-catts.so)\" = '7ab574482f93d2b4881788631893a540bae2f64838d82cfcbadb9d8c74c11922  /tmp/libgala-catts.so' && echo 'Download OK.' || echo '🛑 STOP. Security error. File has been tampered with. DO NOT PROCEED.'"
+    bash -lic "test \"\$(sha256sum /tmp/libgala-catts.so)\" = '6bb9fd8d79b553d66d3b5f83e79040a7ca55a97231004df546549c7f31c828bb  /tmp/libgala-catts.so' && echo 'Download OK.' || echo '🛑 STOP. Security error. File has been tampered with. DO NOT PROCEED.'"
     ```
 
     __Unless you see `Download OK`, do NOT proceed to Step 3.__ (Instead, [open an issue here](https://github.com/small-tech/catts/issues) and let us know what happened.)
@@ -123,6 +133,8 @@ Catts implements the bare minimum functionality for a calm task switching experi
 It currently has the following major limitations:
 
   - [__Drag and drop does not work.__](https://github.com/small-tech/catts/issues/2) You should be able to both (a) continue a drag and drop that you started prior to activating the task switcher (e.g., you want to drag a photo from Photos into the app you’re working in) and (b) you should be able to drag and drop onto the icons which should act as proxies for the apps/windows themselves.
+
+    _Workaround:_ if you stop at the item before the one you want, you can start dragging something, press <kbd>alt</kbd> + <kbd>tab</kbd> quickly, and continue dragging. This only appears to work when switching to the next app.
 
   - [__Only includes apps in the current workspace.__](https://github.com/small-tech/catts/issues/3) You should be able to switch to apps in any workspace.
 

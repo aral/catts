@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2021-11-08
+
+### Added
+
+  - Basic accessibility.
+
+    Announces: “window, task switcher, N items, panel” when launched and the title of the window when an item is selected.
+
+    Given there is next to no usable information about accessibility in the GNOME/Gtk/Vala/elementary OS documentation, I had to cobble together whatever pieces I could find to get this together. It is not ideal but it is way better than having the task switcher be entirely inaccessible, which has been the case with the previous one for the first six releases of elementary OS.
+
+    I hope that this will spur others with greater experience in the platform to improve this essential feature going forward.
+
+    If you care about accessibility and inclusivity and you want to see it reflected as a core tenet of elementary OS, please make your voice heard in this discussion thread: https://github.com/elementary/hig/discussions/51
+
 ## [1.0.1] - 2021-08-29
 
 ### Fixed
