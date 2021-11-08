@@ -74,10 +74,17 @@ Please use the copy/clipboard button that appears when you hover over a code sni
 
 You can now <kbd>Alt</kbd> + <kbd>Tab</kbd> in peace.
 
-
 ### If Alt + Shift + Tab doesn't work…
 
 Elementary ships with <kbd>Alt</kbd> + <kbd>Shift</kbd> bound to switch keyboard layout. Go to _Settings_ → _Keyboard_ → _Layout_ and either set _Switch layout_ to _Disabled_ (if you don’t have multiple keyboard layouts) or to a different key combination. Elementary should really ship with this setting set to _Disabled_ by default.
+
+## Uninstall
+
+To uninstall, run the following command in Terminal and reboot your computer:
+
+```shell
+sudo rm /usr/lib/x86_64-linux-gnu/gala/plugins/libgala-catts.so
+```
 
 ## Why Catts?
 
@@ -213,7 +220,7 @@ __Note:__ Don’t have the Calculator or Tasks apps running in your primary sess
 Once you're done testing you can remove the plugin with.
 
 ```bash
-./cleanup.sh
+sudo ./cleanup.sh
 ```
 
 ## Replace Gala
