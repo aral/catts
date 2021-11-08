@@ -164,8 +164,9 @@ The following are technical details for developers who want to manually compile 
 
 ### Dependencies
 
-* elementary-sdk
-* libclutter-1.0-dev
+- elementary-sdk
+- libclutter-1.0-dev
+- libwnck-3-dev
 
 Make sure you `apt install` all of the above requirements before trying to build.
 
