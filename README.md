@@ -8,6 +8,18 @@ For elementary OS versions 5.x, please use [Gala Alt Tab Plus](https://github.co
 
 [Want the wallpaper?](#get-the-wallpaper)
 
+## Catts is now part of elementary OS
+
+__November 30, 2021__
+
+With the [elementary OS November updates](https://blog.elementary.io/elementary-os-6-odin-updates-november-2021/), Catts is now baked into [Gala](https://github.com/elementary/gala) – the window and compositing manager for elementary OS – and so comes pre-installed with elementary OS.
+
+A big thank-you to [David M. Hewitt](https://github.com/davidmhewitt) for taking the initiative to integrate Catts into Gala and [Cassidy](https://github.com/cassidyjames/) and [Dani](https://github.com/danrabbit/) for their support and input throughout the process.
+
+You can read more about the backstory of the project in [my three-month-long elementary OS 6 upgrade adventure (Part 1)](https://ar.al/2021/11/08/my-three-month-long-elementary-os-6-upgrade-adventure-in-three-parts-part-1-catts/).
+
+While Catts is now part of elementary OS, I am not deprecating it [until the version that’s in elementary OS is made accessible](https://github.com/elementary/gala/issues/1301). (This is currently set as a high priority issue so hopefully, it won’t be long.)
+
 ## Version details
 
   - __1.0.2 (2021-11-08)__ Adds basic accessibility.
